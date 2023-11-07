@@ -1,11 +1,11 @@
-import React from 'react'
 import ImagesGrid from '../../Components/Home/ImagesGrid'
 import Footer from '../../Components/Home/Footer'
+import Header from '../../Components/Shared/Header'
 
 const HomePage = () => {
   return (
     <div className='pb-40'>
-
+      <Header/>
       <div className='justify-center text-center items-center w-full mt-20 text-3xl'>
         <p>Connecting clients</p>
         <p>photographer worldwide</p>

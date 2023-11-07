@@ -98,7 +98,7 @@ const SignInForm = () => {
                       </div>
                     </button>
                     <div className="text-center">
-                      <p className="text-gray-500">New here? <Link to={`signUp`} className="text-blue-500 hover:text-blue-700">Create an Account</Link></p>
+                      <p className="text-gray-500">New here? <Link to={`/signUp`} className="text-blue-500 hover:text-blue-700">Create an Account</Link></p>
                     </div>
                   </div>
                 </div>
