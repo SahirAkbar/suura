@@ -1,4 +1,3 @@
-import React, { useState ,ChangeEvent} from 'react'
 import TimezoneSelect from 'react-timezone-select'
 import { FaInstagram, FaRegUser } from "react-icons/fa6";
 import { CreateProfileSchema, createProfileType } from '../../Schema/CreateProfileSchema';
@@ -29,9 +28,9 @@ const CreateProfile = () => {
     },
 
   });
-  const [selectedTimezone, setSelectedTimezone] = useState(
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-    )
+  // const [selectedTimezone, setSelectedTimezone] = useState<string>(
+  //   Intl.DateTimeFormat().resolvedOptions().timeZone
+  //   )
   return (
     <div className='min-h-screen w-full'>
       <div className="absolute top-3 left-4">

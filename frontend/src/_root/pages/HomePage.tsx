@@ -1,4 +1,3 @@
-import React from 'react'
 import ImagesGrid from '../../Components/Home/ImagesGrid'
 import Footer from '../../Components/Home/Footer'
 import Header from '../../Components/Shared/Header'
