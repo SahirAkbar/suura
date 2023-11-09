@@ -15,7 +15,6 @@ const options  = {
 const validate =
   (schema) =>
   (req, res, next) => {
-    console.log("Called",schema);
     try {
       const result = schema.safeParse({
         body: req.body,

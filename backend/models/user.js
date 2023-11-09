@@ -36,8 +36,8 @@ const createUser = (user, callback) => {
 };
 
 
-const updateUser = (email, userInfo, callback) => {
-  db.query('UPDATE users SET ? WHERE email = ?', [userInfo, email], callback);
+const updateUser = (id, userInfo, callback) => {
+  db.query('UPDATE users SET ? WHERE id = ?', [userInfo, id], callback);
 };
 // ...
 
