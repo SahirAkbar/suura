@@ -7,9 +7,14 @@ exports.registerEmailPassword = (req, res) => {
   userModel.createUser(userData, (error, results) => {
     if (error) {
       console.error('Error: ' + error.message);
-      res.status(500).send('Error creating user. please check you have entered correct emial');
+      if (error.code === "ER_DUP_ENTRY") {
+        res.status(500).send("Email Already exists");
+      }
+      else {
+        res.status(500).send("Server Error")
+      }
     } else {
-      res.status(201).json({ message: 'User email and password created successfully' });
+      res.status(201).json({ message: 'User email and password created successfully',results });
     }
   });
 };
@@ -17,14 +22,18 @@ exports.registerEmailPassword = (req, res) => {
 // Controller for the second page with additional user information
 exports.registerUserInfo = (req, res) => {
   const userInfo = req.body; // Assuming you're using body-parser
+  const id = req.params.id;
   // Assuming you have a way to identify the user (e.g., based on their email)
   const email = userInfo.email; // Use email or any other unique identifier
-  userModel.updateUser(email, userInfo, (error, results) => {
+  userModel.updateUser(id, userInfo, (error, results) => {
     if (error) {
-      console.error('Error: ' + error.message);
-      res.status(500).send('Error updating user information');
+      console.log(error)
+      console.error("Error: " + error.message);
+      res.status(500).send(error.message);
     } else {
-      res.status(200).json({ message: 'User information updated successfully' });
+      res
+        .status(200)
+        .json({ message: "User information updated successfully" });
     }
   });
 };

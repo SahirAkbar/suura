@@ -3,12 +3,22 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const multer = require('multer');
 const passport = require('passport');
-
+const validate = require('../MiddleWare/AuthenticateSchema');
+const RegisterSchmea = require('../Schema/registerSchema')
+const signupSchema = require("../Schema/signupSchema")
 // Route for the first page to enter email and password
-router.post('/register/email-password', userController.registerEmailPassword);
+router.post(
+  "/register/email-password",
+  validate(RegisterSchmea),
+  userController.registerEmailPassword
+);
 
 // Route for the second page with additional user information
-router.post('/register/user-info', userController.registerUserInfo);
+router.post(
+  "/register/user-info/:id",
+  validate(signupSchema),
+  userController.registerUserInfo
+);
 // Route for image uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
