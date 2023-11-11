@@ -1,0 +1,51 @@
+name: Workflow for deploying to Linode
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  # Run all unit tests.
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the pull request's source code.
+      - name: Check out source code
+        uses: actions/checkout@v3
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    steps:
+        # Runs On Develop branch
+      - name: Installing ssh-agent if not already installed, it is required by Docker.
+        run: |
+          echo "Installing ssh-agent" 
+          sudo apt-get update
+          which ssh-agent | sudo apt-get install openssh-client -y
+
+      - name: Creating the SSH directory and giving it the right permissions
+        run: |
+          echo "Creating the SSH directory and granting permissions"
+          mkdir -p ~/.ssh
+          sudo chmod 700 ~/.ssh
+          echo -e "Host *\nStrictHostKeyChecking no\n" > ~/.ssh/config
+          ssh-keyscan ${{secrets.HOST}} >> ~/.ssh/known_hosts
+          sudo chmod 644 ~/.ssh/known_hosts
+
+      - name: Run ssh-agent (inside the build environment)
+        run: |
+          echo "Starting SSH agent" 
+          eval `ssh-agent -s`   
+
+      - name: Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+        env: 
+          SSH_PRIV_KEY: ${{ secrets.SSH_PRIV_KEY }}
+
+        run: |
+          echo "Adding the SSH key to the agent"
+          echo "$SSH_PRIV_KEY" > private_key && chmod 600 private_key
+
+      - name: Accessing the instance and running the deployment script 
+        run: | 
+          ssh -o StrictHostKeyChecking=no -i private_key ${{secrets.SSH_USER}}@${{secrets.HOST}} "cd /home/linode-user/apps; bash deployment.sh"
