@@ -4,4 +4,4 @@ const axiosInstance = axios.create({
   timeout: 1000,
   headers: { "X-Custom-Header": "foobar" },
 });
-export default axiosInstance; 
+export default axiosInstance;
