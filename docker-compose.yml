@@ -37,7 +37,7 @@ services:
       - "3306:3306"
 
 volumes:
-  /home/linode-user/data/mysql
+  /home/linode-user/data/mysql:
 networks:
   my-network:
     driver: bridge
