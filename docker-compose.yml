@@ -11,6 +11,19 @@ services:
     networks:
       - my-network
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    tty: true
+    ports: 
+      -"3000:3000"
+    networks:
+      - my-network
+    volumes:
+      - ./backend:/usr/src/app
+
 networks:
   my-network:
     driver: bridge

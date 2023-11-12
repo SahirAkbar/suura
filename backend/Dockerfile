@@ -1,0 +1,12 @@
+FROM node:18-slim as build
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app
+
+RUN npm i 
+#RUN npm install react-loader-spinner --force
+
+COPY . /usr/src/app
+#RUN npm run build
+
+CMD ["node", "app.js"]
