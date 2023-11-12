@@ -32,12 +32,12 @@ services:
       MYSQL_DATABASE: "suura"
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
-      - /home/linode-user/data/mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     ports: 
       - "3306:3306"
 
 volumes:
-  /home/linode-user/data/mysql:
+  mysql:
 networks:
   my-network:
     driver: bridge
