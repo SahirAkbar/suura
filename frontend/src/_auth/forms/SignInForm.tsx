@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const SignInForm = () => {
   return (
     <div className="flex ">
-      <div className="w-1/2  rounded-xl bg-white shadow-xl p-4">
+      <div className="w-1/2  rounded-xl bg-creame-1 shadow-xl p-4">
         <form>
           <div className="relative pt-14 bg-gradient-to-br to-gray-200 ">
             <div className="absolute top-3 left-4">
