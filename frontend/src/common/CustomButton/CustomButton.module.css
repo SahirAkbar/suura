@@ -1,0 +1,3 @@
+.button {
+  @apply py-2 border border-gray-outline rounded-lg transition duration-300;
+}

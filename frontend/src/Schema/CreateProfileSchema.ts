@@ -1,10 +1,12 @@
 import { InferType, object, string } from "yup";
 export const CreateProfileSchema = object({
-  email: string().email("Invalid email address").required("Email id is Required"),
-  firstName: string()
+  email: string()
+    .email("Invalid email address")
+    .required("Email id is Required"),
+  first_name: string()
     .required("First Name is Required")
     .min(2, " Min length is 2 characters"),
-  surName: string()
+  last_name: string()
     .required("Surame is Required")
     .min(2, " Min length is 2 characters"),
   username: string()
@@ -16,7 +18,7 @@ export const CreateProfileSchema = object({
   location: string()
     .required("Location is Required")
     .min(2, " Min length is 2 characters"),
-  timezone: string()
+  time_zone: string()
     .required("TimeZone is Required")
     .min(2, " Min length is 2 characters"),
   currency: string()
