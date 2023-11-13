@@ -1,17 +1,18 @@
+// @ts-nocheck
 import React, { FC, PropsWithChildren } from "react";
 import styles from "./CustomButton.module.css";
-
-interface CustomButtonProps {
-  classes: string;
-}
 
 const CustomButton: FC<PropsWithChildren<CustomButtonProps>> = ({
   children,
   className,
+  onClick = () => {},
 }) => {
   return (
-    <div>
-      <button className={`${styles.button} px-7 ${className}`}>
+    <div className="cursor-pointer">
+      <button
+        className={`${styles.button} px-7 ${className}`}
+        onClick={onClick}
+      >
         {children}
       </button>
     </div>

@@ -1,5 +1,5 @@
 .searchInput {
-  @apply px-4 w-full focus-visible:outline-none;
+  @apply px-4 w-full focus-visible:outline-none bg-transparent;
 }
 
 .searchInput::placeholder {
