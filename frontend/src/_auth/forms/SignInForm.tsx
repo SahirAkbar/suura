@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 const SignInForm = () => {
   return (
     <div className="flex ">
-      <div className="w-1/2  rounded-xl bg-creame-1 shadow-xl p-4">
+      <div className="w-1/2  rounded-xl bg-white shadow-xl p-4">
         <form>
           <div className="relative pt-14 bg-gradient-to-br to-gray-200 ">
             <div className="absolute top-3 left-4">
-              <Link to="/">
-                <p className="text-2xl font-bold text-primary">Suura</p>
-              </Link>
+              <p className="text-2xl font-bold text-primary">Suuraa</p>
             </div>
-            <div className="relative container m-auto px-0 md:px-4 xl:px-4 h-4 ">
+            <div className="relative container m-auto px-0   md:px-4 xl:px-4 h-4 ">
               <div className=" ">
                 <div className="px-10 sm:px-16">
                   <div className="grid space-y-4 m-10">
@@ -155,9 +153,9 @@ const SignInForm = () => {
           </div>
         </form>
       </div>
-      <div className="w-1/2 flex items-center justify-center bg-white">
+      <div className="w-1/2 flex items-center justify-center">
         <img
-          src="/assets/sideImage.jpg"
+          src="public/assets/sideImage.jpg"
           className="object-cover h-screen"
           alt=""
         />
