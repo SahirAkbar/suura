@@ -16,7 +16,7 @@
 }
 
 .containerRight {
-  @apply box-border object-contain sm:h-full xl:h-[99%] 2xl:h-[96%] 3xl:h-[82%] p-8;
+  @apply box-border object-contain sm:h-full xl:h-[99%] 2xl:h-[96%] 3xl:h-[82%] p-8 bg-white;
 }
 
 .messageText {
