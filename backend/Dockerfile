@@ -3,7 +3,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app
 
-RUN npm i zod-error
+RUN npm i express
 #RUN npm install react-loader-spinner --force
 
 COPY . /usr/src/app
