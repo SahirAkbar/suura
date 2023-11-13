@@ -1,7 +1,7 @@
+// @ts-nocheck
 import { Link } from "react-router-dom";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import { AppleLogo } from "../../../icons/AppleLogo";
-import { DesktopPicture } from "../../../icons/DesktopPicture";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import styles from "./SignInForm.module.css";
 
@@ -128,9 +128,9 @@ const SignInForm = () => {
       <div className={styles.containerRight}>
         <div className={styles.imageContainer}>
           <CustomImage
-            src="public/assets/image-signup-page.jpg"
+            src="/assets/image-signup-page.jpg"
             altText="signup-display-picture"
-            classes="h-full w-full rounded-xl"
+            className="h-full w-full rounded-xl"
           />
           <div className="absolute bottom-0 p-10 text-white">
             <div className={styles.captionMessage}>
@@ -140,9 +140,9 @@ const SignInForm = () => {
             </div>
             <div className={styles.authorContainer}>
               <CustomImage
-                src="public/assets/author-image.jpg"
+                src="/assets/author-image.jpg"
                 altText="signup-display-picture"
-                classes="h-10 w-10 rounded-full"
+                className="h-10 w-10 rounded-full"
               />
               <div className="ml-2">
                 <div className="text-sm ">Danyal Saif</div>

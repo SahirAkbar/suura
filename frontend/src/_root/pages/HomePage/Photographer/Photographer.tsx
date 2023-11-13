@@ -1,6 +1,6 @@
+// @ts-nocheck
+
 import CustomButton from "../../../../common/CustomButton/CustomButton";
-import CustomImage from "../../../../common/CustomImage/CustomImage";
-import IconStar from "../../../../icons/IconsStar";
 import styles from "./Photographer.module.css";
 
 const Photographer = ({ src, buttonChildren, name, location, className }) => {

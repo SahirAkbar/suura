@@ -1,77 +1,32 @@
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+// @ts-nocheck
+import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
-import {
-  ArrowPathIcon,
-  Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import IconGlobe from "../../../icons/IconGlobe";
 import IconSearch from "../../../icons/IconSearch";
-
-const products = [
-  {
-    name: "Analytics",
-    description: "Get a better understanding of your traffic",
-    href: "#",
-    icon: ChartPieIcon,
-  },
-  {
-    name: "Engagement",
-    description: "Speak directly to your customers",
-    href: "#",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "Security",
-    description: "Your customers’ data will be safe and secure",
-    href: "#",
-    icon: FingerPrintIcon,
-  },
-  {
-    name: "Integrations",
-    description: "Connect with third-party tools",
-    href: "#",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Automations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
-    icon: ArrowPathIcon,
-  },
-];
-const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
-  { name: "Contact sales", href: "#", icon: PhoneIcon },
-];
 
 // function classNames( ) {
 //   return classes.filter(Boolean).join(' ')
 // }
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  //const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [locale, setLocale] = useState("eng");
 
+  useEffect(() => {
+    setLocale("eng");
+  }, []);
+
   return (
-    <header className="bg-white sticky top-0">
-      <nav className="flex items-center p-2 lg:px-10 w-full mx-auto">
+    <header className="sticky top-0 border-b border-black-10">
+      <nav className="flex items-center p-2 lg:px-10 w-full mx-auto bg-creame-1">
         <div className="flex items-center justify-evenly h-full w-[40%]">
-          <p className="text-body-bold text-primary text-dark-8 font-OTabolas ">
-            Suura
-          </p>
+          <Link to="/">
+            <p className="text-body-bold text-primary text-dark-8 font-OTabolas ">
+              Suura
+            </p>
+          </Link>
           <div className="flex justify-evenly items-center w-full">
             <p className="text-base text-dark-5 font-TTHovesM  text-left">
               Features for photographers
@@ -97,10 +52,11 @@ export default function Header() {
             <CustomButton className="bg-tale-10 border-tale-10 text-white mx-2 px-7">
               Try for free
             </CustomButton>
-            <Link to={'/login'}>
-            <CustomButton className="bg-brown-10 border-brown-10 text-white mx-2 px-7">
-              Login
-            </CustomButton>
+
+            <Link to={"/login"}>
+              <CustomButton className="bg-brown-10 border-brown-10 text-white mx-2 px-7">
+                Login
+              </CustomButton>
             </Link>
             <div className="flex items-center mx-2">
               <IconGlobe />

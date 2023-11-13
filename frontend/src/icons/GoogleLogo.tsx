@@ -1,5 +1,3 @@
-import React from "react";
-
 export const GoogleLogo = () => (
   <svg
     width="20"

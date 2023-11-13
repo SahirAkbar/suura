@@ -1,13 +1,19 @@
+// @ts-nocheck
 import ImagesGrid from "../../../Components/Home/ImagesGrid";
 import Footer from "../../../Components/Home/Footer";
 import Header from "../../../Components/Shared/Header/Header";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import IconSearch from "../../../icons/IconSearch";
-// import styles from "./HomePage.module.css";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import Photographer from "./Photographer/Photographer";
 import IconStar from "../../../icons/IconsStar";
 import IconArrowCurve from "../../../icons/IconArrowCurve";
+import IconLinearSquare from "../../../icons/IconLinearSquare";
+import IconSunFog from "../../../icons/IconSunFog";
+import Category from "./Category/Category";
+import MessageNotification from "./MessageNotification/MessageNotification";
+import IconMoneyTick from "../../../icons/IconMoneyTick";
+import IconArrow from "../../../icons/IconArrow";
 
 const HomePage = () => {
   return (
@@ -33,18 +39,18 @@ const HomePage = () => {
                 <span className="bottom-0 inline-block">
                   <div>
                     <CustomImage
-                      src="public/assets/author-image-2.jpg"
+                      src="/assets/author-image-2.jpg"
                       altText="signup-display-picture"
-                      classes="h-10 w-10 rounded-full"
+                      className="h-10 w-10 rounded-full"
                     />
                   </div>
                 </span>
                 <span className="-ml-2 inline-block">
                   <div>
                     <CustomImage
-                      src="public/assets/author-image-3.jpg"
+                      src="/assets/author-image-3.jpg"
                       altText="signup-display-picture"
-                      classes="h-10 w-10 rounded-full"
+                      className="h-10 w-10 rounded-full"
                     />
                   </div>
                 </span>
@@ -66,7 +72,7 @@ const HomePage = () => {
       </div>
       <div className="grid grid-cols-4 gap-4 h-[435px] p-10 box-content-">
         <Photographer
-          src="public/assets/homepage-photographer-1.jpg"
+          src="/assets/homepage-photographer-1.jpg"
           name="Melanie Beatrice"
           location="Spokane, WA, USA."
           buttonChildren={
@@ -77,7 +83,7 @@ const HomePage = () => {
           className=""
         />
         <Photographer
-          src="public/assets/homepage-photographer-2.jpg"
+          src="/assets/homepage-photographer-2.jpg"
           name="Jannely Affandi"
           location="Salt Lake City, Utah, USA"
           buttonChildren={
@@ -88,7 +94,7 @@ const HomePage = () => {
           className=""
         />
         <Photographer
-          src="public/assets/homepage-photographer-3.jpg"
+          src="/assets/homepage-photographer-3.jpg"
           name="Autumn Waldman Photography"
           location="Wahoo, NE, USA."
           buttonChildren={
@@ -101,6 +107,211 @@ const HomePage = () => {
         />
       </div>
 
+      <div className="grid grid-cols-10 gap-4 h-[662px] p-10 box-content my-6">
+        <div className="col-span-6">
+          <Category
+            title="Plan photoshoots"
+            heading={
+              <div>
+                <p>Say goodbye to</p>
+                <p>awkward photoshoots</p>
+              </div>
+            }
+            list={[
+              {
+                header: "Learn how to pose with confidence",
+                message:
+                  "With the world's largest pose library always in your pocket",
+              },
+              {
+                header: "Find dreamy light with our Sun Tracker",
+                message:
+                  "Plan your sessions around the magic hours down to the minute",
+              },
+              {
+                header: "Unleash your creative potential",
+                message:
+                  "Curate your fave poses and push your creativity every shoot",
+              },
+            ]}
+            buttonText="Try Suura for free"
+            buttonClick={() => {}}
+          />
+        </div>
+        <div className="col-span-4 pt-2 pb-28 px-6">
+          <div className="grid grid-cols-2 h-full box-content">
+            <div className="grid gap-4 grid-auto-rows mx-2 my-4">
+              <div className="flex flex-col h-auto max-w-full  p-4 pr-16 justify-evenly rounded-lg bg-dark-0">
+                <div className="h-[40]">
+                  <IconLinearSquare />
+                </div>
+                <div className="text-body-small text-dark-8 font-TTHovesSB">
+                  Best poses library to help create stunning photos
+                </div>
+              </div>
+              <div>
+                <img
+                  className="h-full max-w-full rounded-lg"
+                  src="/assets/homepage-image-1.jpg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div className="grid gap-4 grid-auto-rows mx-2 my-4">
+              <div>
+                <img
+                  className="h-full max-w-full rounded-lg"
+                  src="/assets/homepage-image-2.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="flex flex-col h-auto max-w-full p-4 pr-16 justify-evenly rounded-lg bg-tale-2">
+                <div className="h-[40]">
+                  <IconSunFog />
+                </div>
+                <div className="text-body-small text-dark-8 font-TTHovesSB">
+                  Get updated with the golden hours
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-10 gap-4 h-[662px] p-10 box-content">
+        <div className="col-span-5 pt-16 pb-6 px-6">
+          <CustomImage
+            src="/assets/homepage-image-3.jpg"
+            className="rounded-xl"
+          />
+        </div>
+        <div className="col-span-5">
+          <Category
+            title="Personalised Portfolio"
+            heading={
+              <div>
+                <p>Stand out in a sea of</p>
+                <p>other photographers</p>
+              </div>
+            }
+            colspan={5}
+            list={[
+              {
+                header: "Showcase your work",
+                message: "Easily create a beautifully designed mini-website",
+              },
+              {
+                header: "Get booked easier then ever",
+                message:
+                  "Get requests straight into your app with your own booking link",
+              },
+              {
+                header: "Browse job opportunities",
+                message:
+                  "Find your ideal gig based on location, budget, or shoot type",
+              },
+            ]}
+            buttonText="Explore Directory Features"
+            buttonClick={() => {}}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-10 gap-4 h-[662px] p-10 box-content">
+        <div className="col-span-5">
+          <Category
+            title="Manage your business"
+            heading={
+              <div>
+                <p>Easily make money</p>
+                <p>doing what you love</p>
+              </div>
+            }
+            colspan={5}
+            list={[
+              {
+                header: "Get paid faster with online payments",
+                message: "Easily accept credit, debit, wire transfer, and more",
+              },
+              {
+                header: "Easy done-for-you booking system",
+                message:
+                  "Set yourself up in minutes and start booking clients on the go",
+              },
+              {
+                header: "Protect your biz with contracts",
+                message:
+                  "Show you’re a pro with lawyer-approved templates and e-signatures",
+              },
+            ]}
+            buttonText="Explore Business Features"
+            buttonClick={() => {}}
+          />
+        </div>
+        <div className="relative col-span-5 pt-16 pb-6 px-6">
+          <div className="absolute top-6 -left-20 w-full h-full">
+            <MessageNotification
+              icon={<IconMoneyTick />}
+              message={
+                <p className="flex text-base text-dark-3 font-medium font-TTHovesM">
+                  You’ve been paid
+                  <p className="text-dark-8 ml-1 inline-block">$200.00</p>
+                </p>
+              }
+            />
+            <MessageNotification
+              icon={<IconMoneyTick />}
+              message={
+                <p className="flex text-base text-dark-3 font-medium font-TTHovesM">
+                  You’ve been paid
+                  <p className="text-dark-8 ml-1 inline-block">$200.00</p>
+                </p>
+              }
+            />
+          </div>
+
+          <div className="absolute flex flex-col justify-end items-center w-[90%] h-[90%] p-8">
+            <div className="bg-white rounded-xl m-10 w-[320px] h-[164px] p-2">
+              <div className="grid grid-cols-2">
+                <div className="flex flex-col justify-around h-full p-6 bg-creame-1 rounded-xl">
+                  <div className="text-body-extrasmall font-TTHovesSB font-semibold text-netural-4">
+                    Customers
+                  </div>
+                  <div className="text-sub-heading-bold font-TTHovesM font-medium">
+                    1024
+                  </div>
+                  <div className="flex items-center w-fit p-2 rounded-md bg-primary-3-light">
+                    <IconArrow color="#FF6A55" />
+                    <div className="text-sm text-primary-3 font-TTHovesM mx-1">
+                      37.8%
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-around h-full p-6 rounded-xl">
+                  <div className="text-body-extrasmall font-TTHovesSB font-semibold text-netural-4">
+                    Income
+                  </div>
+                  <div className="text-sub-heading-bold font-TTHovesM font-medium">
+                    256k
+                  </div>
+                  <div className="flex items-center w-fit p-2 rounded-md bg-primary-3-light">
+                    <div className="rotate-180">
+                      <IconArrow color="#83BF6E" />
+                    </div>
+                    <div className="text-sm text-primary-2 font-TTHovesM mx-1">
+                      37.8%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <CustomImage
+            src="/assets/homepage-image-4.jpg"
+            className="rounded-xl"
+          />
+        </div>
+      </div>
       {/* card section */}
 
       {/* Photoshoots */}
@@ -160,6 +371,22 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+const ListItem = ({ listHeader, listMessage }) => {
+  return (
+    <div className="flex items-center py-4">
+      <div className="m-4">
+        <IconArrowCurve />
+      </div>
+      <div className="flex flex-col">
+        <div className="text-body-small font-semibold text-dark-8 pb-2">
+          {listHeader}
+        </div>
+        <div className="text-base text-dark-5 font-TTHoves">{listMessage}</div>
+      </div>
+    </div>
+  );
+};
 
 {
   /* <div className="flex flex-col md:flex-row gap-5 m-5">

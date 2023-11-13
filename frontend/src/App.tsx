@@ -6,7 +6,7 @@ import HomePage from "./_root/pages/HomePage/HomePage";
 import "./globals.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { queryClient } from "./utils/https";
-import CreateProfileForm from "./_auth/forms/CreateProfileForm";
+
 import ProfilePictureUpload from "./_auth/forms/ProfilePictureUpload";
 const router = createBrowserRouter([
   {
