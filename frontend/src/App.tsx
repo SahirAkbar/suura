@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { queryClient } from "./utils/https";
 
 import ProfilePictureUpload from "./_auth/forms/ProfilePictureUpload";
+import SignUpForm from "./_auth/forms/SignUpForm/SignUpForm";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/signUp",
-    element: <SignupForm />,
+    element: <SignUpForm />,
   },
   {
     path: "/login",
