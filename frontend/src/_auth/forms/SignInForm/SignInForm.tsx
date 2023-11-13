@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import { AppleLogo } from "../../../icons/AppleLogo";
-import { DesktopPicture } from "../../../icons/DesktopPicture";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import styles from "./SignInForm.module.css";
 
