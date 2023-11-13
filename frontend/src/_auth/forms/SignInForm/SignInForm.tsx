@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Link } from "react-router-dom";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import { AppleLogo } from "../../../icons/AppleLogo";

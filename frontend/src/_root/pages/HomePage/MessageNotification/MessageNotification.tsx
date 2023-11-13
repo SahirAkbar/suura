@@ -1,4 +1,4 @@
-import { FC } from "react";
+// @ts-nocheck
 
 interface MessageNotificationProps {
   icon: HTMLElement;

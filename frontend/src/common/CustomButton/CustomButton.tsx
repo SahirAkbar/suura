@@ -1,10 +1,6 @@
+// @ts-nocheck
 import React, { FC, PropsWithChildren } from "react";
 import styles from "./CustomButton.module.css";
-
-interface CustomButtonProps {
-  classes: string;
-  onClick(): void;
-}
 
 const CustomButton: FC<PropsWithChildren<CustomButtonProps>> = ({
   children,

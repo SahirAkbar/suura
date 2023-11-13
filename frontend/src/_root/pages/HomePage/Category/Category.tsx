@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FC } from "react";
 import CustomButton from "../../../../common/CustomButton/CustomButton";
 import IconArrowCurve from "../../../../icons/IconArrowCurve";

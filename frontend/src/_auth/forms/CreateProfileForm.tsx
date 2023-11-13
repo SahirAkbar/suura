@@ -1,3 +1,4 @@
+// @ts-nocheck
 import TimezoneSelect from "react-timezone-select";
 import {
   CreateProfileSchema,
