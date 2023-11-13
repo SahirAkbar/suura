@@ -4,7 +4,6 @@ import Footer from "../../../Components/Home/Footer";
 import Header from "../../../Components/Shared/Header/Header";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import IconSearch from "../../../icons/IconSearch";
-// import styles from "./HomePage.module.css";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import Photographer from "./Photographer/Photographer";
 import IconStar from "../../../icons/IconsStar";
@@ -142,7 +141,7 @@ const HomePage = () => {
         <div className="col-span-4 pt-2 pb-28 px-6">
           <div className="grid grid-cols-2 h-full box-content">
             <div className="grid gap-4 grid-auto-rows mx-2 my-4">
-              <div className="flex flex-col h-auto max-w-full  p-4 pr-16 justify-evenly rounded-lg bg-dar-0">
+              <div className="flex flex-col h-auto max-w-full  p-4 pr-16 justify-evenly rounded-lg bg-dark-0">
                 <div className="h-[40]">
                   <IconLinearSquare />
                 </div>

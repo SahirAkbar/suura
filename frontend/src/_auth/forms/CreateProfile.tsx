@@ -1,5 +1,5 @@
 import { FaInstagram, FaRegUser } from "react-icons/fa6";
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 const CreateProfile = () => {
   return (
@@ -93,8 +93,8 @@ const CreateProfile = () => {
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-3/4 py-16 lg:px-12">
-            <Outlet />
+          <div className='w-full lg:w-3/4 py-16 lg:px-12' >
+            <Outlet/>
           </div>
           {/* for form */}
         </div>
