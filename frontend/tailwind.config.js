@@ -94,7 +94,7 @@ export default {
         "off-white": "#D0DFFF",
         red: "#FF5A5A",
         "dark-0": "#E1ECF1",
-        "dark-1": "#000000",
+        "dark-1": "#BCC6CF",
         "dark-2": "#09090A",
         "dark-3": "#807F95",
         "dark-4": "#1F1F22",

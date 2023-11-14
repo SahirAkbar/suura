@@ -23,19 +23,19 @@ const steps = {
 const stepList = [
   {
     icon: "profile",
-    progress: "complete",
+    progress: "inProgress",
     title: "Create a profile",
     message: "Set up your profile",
   },
   {
     icon: "profile-image",
-    progress: "complete",
+    progress: "pending",
     title: "Upload profile images",
     message: "Upload cover and profile images",
   },
   {
     icon: "link-platform",
-    progress: "inProgress",
+    progress: "pending",
     title: "Link Platform",
     message: "Connect platform to get portfolio",
   },
@@ -57,6 +57,24 @@ const stepList = [
     title: "Collaborate",
     message: "Connect and collaborate",
   },
+];
+
+const sessions = [
+  "Couples",
+  "Interior",
+  "Wedding",
+  "Elopement",
+  "Family",
+  "Maternity",
+  "New Born",
+  "Portraits",
+  "Graduation",
+  "Boudoir",
+  "Branding",
+  "Pets",
+  "Architecture",
+  "Product",
+  "Fashion",
 ];
 
 const UserRegistration: FC = () => {
@@ -169,7 +187,7 @@ const UserRegistration: FC = () => {
               </div>
               <div className="py-6">
                 <CustomButton
-                  className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-full"
+                  className="bg-brown-10 border-brown-10 text-white px-7 h-12 w-full"
                   onClick={(e) => {
                     e.preventDefault();
                     pageChange(currentPage + 1);
@@ -201,7 +219,7 @@ const UserRegistration: FC = () => {
             </div>
             <div className="py-6">
               <CustomButton
-                className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-1/2"
+                className="bg-brown-10 border-brown-10 text-white px-7 h-12 w-1/2"
                 onClick={() => {
                   pageChange(currentPage + 1);
                 }}
@@ -238,12 +256,44 @@ const UserRegistration: FC = () => {
               </div>
               <div className="py-6">
                 <CustomButton
-                  className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-1/2"
+                  className="bg-brown-10 border-brown-10 text-white px-7 h-12 w-1/2"
                   onClick={() => {
                     pageChange(currentPage + 1);
                   }}
                 >
                   Next Step
+                </CustomButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* page 3 */}
+        <div
+          id="page-3"
+          style={{ display: currentPage === 3 ? "block" : "none" }}
+        >
+          <div className="grid m-10 mr-2">
+            <p className="font-normal text-body-caption-bold text-dark-8 font-OTabolas">
+              What kinds of sessions do you offer?
+            </p>
+            <p className={`mt-1 ${styles.messageText}`}>
+              You'll be able to display a portfolio that represents each type of
+              session on your profile.
+            </p>
+            <div>
+              <div className="flex flex-row flex-wrap py-10">
+                {sessions.map((item, index) => {
+                  return <SessionItem text={item} key={index} />;
+                })}
+              </div>
+              <div className="py-6">
+                <CustomButton
+                  className="bg-brown-10 border-brown-10 text-white px-7 h-12 w-1/2"
+                  onClick={() => {
+                    pageChange(currentPage + 1);
+                  }}
+                >
+                  Create Galleries
                 </CustomButton>
               </div>
             </div>
@@ -389,4 +439,12 @@ const getIcon = (icon: string, progress: string) => {
       return null;
     }
   }
+};
+
+const SessionItem = ({ text }) => {
+  return (
+    <div className="px-10 py-2 m-1 ml-0 bg-white border border-dark-1 rounded-xl w-fit text-dark-9 h-fit">
+      {text}
+    </div>
+  );
 };

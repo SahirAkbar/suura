@@ -12,7 +12,7 @@
 }
 
 .containerLeft {
-  @apply box-border object-contain h-full bg-white sm:h-full xl:h-[99%] 2xl:h-[96%] 3xl:h-[82%] pt-36 px-10;
+  @apply box-border object-contain h-full bg-white pt-36 px-10;
 }
 
 .containerRight {
