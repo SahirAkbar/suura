@@ -8,6 +8,7 @@ import styles from "./SignUpForm.module.css";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import { AppleLogo } from "../../../icons/AppleLogo";
 import CustomImage from "../../../common/CustomImage/CustomImage";
+import CustomButton from "../../../common/CustomButton/CustomButton";
 
 const SignUpForm = () => {
   const { mutate } = useMutation(signin);
@@ -29,7 +30,7 @@ const SignUpForm = () => {
     <div className={styles.mainContainer} onSubmit={handleSubmit}>
       <div className={styles.containerLeft}>
         <div className="absolute top-3 left-10">
-          <Link to="/">
+          <Link to="/" className="w-full">
             <p className="text-body-bold text-primary text-dark-8 font-OTabolas z-10">
               Suura
             </p>
@@ -74,12 +75,11 @@ const SignUpForm = () => {
                   ) : null}
                   <button className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-primary"></button>
                 </div>
-                <button
-                  type="submit"
-                  className="h-14 rounded-lg font-TTHoves text-lg text-white bg-brown-10 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
-                >
-                  Create an account
-                </button>
+                <Link to="/registration">
+                  <CustomButton className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-full">
+                    Create account
+                  </CustomButton>
+                </Link>
                 <div className="text-center mt-2 mb-2">
                   <p className={styles.messageText}>
                     By creating an account you agreed with the Suura’s

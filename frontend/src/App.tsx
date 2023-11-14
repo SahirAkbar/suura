@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { QueryClientProvider } from "react-query";
 import CreateProfile from "./_auth/forms/CreateProfile";
 import SignInForm from "./_auth/forms/SignInForm/SignInForm";
@@ -9,6 +10,7 @@ import { queryClient } from "./utils/https";
 
 import ProfilePictureUpload from "./_auth/forms/ProfilePictureUpload";
 import SignUpForm from "./_auth/forms/SignUpForm/SignUpForm";
+import UserRegistration from "./_auth/forms/UserRegistration/UserRegistration";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <SignInForm />,
+  },
+  {
+    path: "/registration",
+    element: <UserRegistration />,
   },
 ]);
 const App = () => {

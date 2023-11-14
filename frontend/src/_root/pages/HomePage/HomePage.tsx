@@ -34,7 +34,7 @@ const HomePage = () => {
           </span>
           <div className="w-[437px] font-OTabolas text-sub-heading-bold text-dark-8">
             <p>
-              Seeking Professinal and undiscovered photographers
+              Seeking Professional and undiscovered photographers
               <span className="ml-2 relative align-middle">
                 <span className="bottom-0 inline-block">
                   <div>
