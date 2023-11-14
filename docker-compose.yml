@@ -11,7 +11,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql
     ports: 
-      - "3306:3306"
+      - "33060:3306"
     networks:
       - my-network
 
