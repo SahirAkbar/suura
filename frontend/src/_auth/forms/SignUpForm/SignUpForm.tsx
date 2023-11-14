@@ -1,16 +1,36 @@
 // @ts-nocheck
+import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-import CustomImage from "../../../common/CustomImage/CustomImage";
-import { AppleLogo } from "../../../icons/AppleLogo";
+import { signupFormSchema } from "../../../Schema/SignupFormSchema";
+import { useMutation } from "react-query";
+import { signin } from "../../../utils/https";
+import styles from "./SignUpForm.module.css";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
-import styles from "./SignInForm.module.css";
+import { AppleLogo } from "../../../icons/AppleLogo";
+import CustomImage from "../../../common/CustomImage/CustomImage";
+import CustomButton from "../../../common/CustomButton/CustomButton";
 
-const SignInForm = () => {
+const SignUpForm = () => {
+  const { mutate } = useMutation(signin);
+  const { errors, handleSubmit, handleChange, handleBlur, values, touched } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: signupFormSchema,
+      onSubmit: (values) => {
+        console.log(values);
+        mutate(values);
+        // action.resetForm();
+      },
+    });
+  console.log(errors);
   return (
-    <div className={styles.mainContainer}>
+    <div className={styles.mainContainer} onSubmit={handleSubmit}>
       <div className={styles.containerLeft}>
         <div className="absolute top-3 left-10">
-          <Link to="/">
+          <Link to="/" className="w-full">
             <p className="text-body-bold text-primary text-dark-8 font-OTabolas z-10">
               Suura
             </p>
@@ -21,61 +41,48 @@ const SignInForm = () => {
             <div className="px-10 sm:px-16">
               <div className="grid m-10">
                 <p className="font-normal text-body-caption-bold text-dark-8 font-OTabolas">
-                  Glad you are back!
+                  Welcome to Suura!
                 </p>
                 <p className={`mt-1 ${styles.messageText}`}>
-                  Enter your registered email and password to log in.
+                  Lets create an account and start enjoying Suura
                 </p>
                 <div className="my-6">
                   <input
                     type="text"
                     placeholder="Email"
                     className={styles.formInput}
+                    onChange={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
                     id="email-input"
                   />
                 </div>
+                {errors.email && touched.email ? (
+                  <p className="form-error">{errors.email}</p>
+                ) : null}
                 <div className="mb-6">
                   <input
                     type="password"
                     placeholder="Password"
                     className={styles.formInput}
                     id="password-input"
+                    onChange={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
                   />
+                  {errors.password && touched.password ? (
+                    <p className="form-error">{errors.password}</p>
+                  ) : null}
                   <button className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-primary"></button>
                 </div>
-
-                <div className="flex items-start mb-6">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      type="checkbox"
-                      value=""
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                      required
-                    />
-                  </div>
-                  <label
-                    htmlFor="remember"
-                    className="ml-2 text-sm font-TTHoves text-dark-8 dark:text-gray"
-                  >
-                    Keep me logged in
-                  </label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm font-TTHoves text-tale-10 hover:text-blue-700"
-                  >
-                    Forgot Password?
-                  </a>
-                </div>
-                <button
-                  type="submit"
-                  className="h-14 rounded-lg font-TTHoves text-lg text-white bg-brown-10 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
-                >
-                  Log in
-                </button>
+                <Link to="/registration">
+                  <CustomButton className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-full">
+                    Create account
+                  </CustomButton>
+                </Link>
                 <div className="text-center mt-2 mb-2">
                   <p className={styles.messageText}>
-                    By clicking on login you agreed with the Suura's
+                    By creating an account you agreed with the Suura’s
                   </p>
                   <p className={styles.messageText}>
                     terms of service & privancy guidelines
@@ -86,7 +93,7 @@ const SignInForm = () => {
                     </div>
                     <div className="relative flex justify-center">
                       <span className="bg-pearl-white px-4 text-md text-gray">
-                        Or log in using
+                        Or
                       </span>
                     </div>
                   </div>
@@ -113,12 +120,12 @@ const SignInForm = () => {
                 </button>
                 <div className="text-center font-TTHoves">
                   <p className="text-dark-8 mt-4">
-                    New here ?&nbsp;
+                    Already have an account ?&nbsp;
                     <Link
-                      to={`/signUp`}
+                      to={`/login`}
                       className="text-tale-10 hover:text-blue-700"
                     >
-                      Create an Account
+                      Login
                     </Link>
                   </p>
                 </div>
@@ -158,4 +165,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

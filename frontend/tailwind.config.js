@@ -79,6 +79,13 @@ export default {
             fontWeight: "semibold",
           },
         ],
+        ["body-thin"]: [
+          "0.875rem",
+          {
+            lineHeight: "1.1875rem",
+            fontWeight: "normal",
+          },
+        ],
       },
       colors: {
         "primary-500": "#877EFF",
@@ -87,7 +94,7 @@ export default {
         "off-white": "#D0DFFF",
         red: "#FF5A5A",
         "dark-0": "#E1ECF1",
-        "dark-1": "#000000",
+        "dark-1": "#BCC6CF",
         "dark-2": "#09090A",
         "dark-3": "#807F95",
         "dark-4": "#1F1F22",
@@ -101,6 +108,7 @@ export default {
         "light-4": "#5C5C7B",
         "pearl-white": "#FFFBF9",
         gray: "#7F8AA5",
+        "gray-600": "#475467",
         "gray-outline": "#ABB2C4",
         "brown-10": "#C7987A",
         "tale-2": "#E9F1DB",
@@ -129,6 +137,7 @@ export default {
         OTabolas: ["OTAbalos-Regular"],
         OTabolasH: ["OTAbalos-Hairline"],
         OTabolasM: ["OTAbalos-Medium"],
+        TTHovesEL: ["TT-Hoves-ExtraLight"],
         TTHoves: ["TT-Hoves-Regular"],
         TTHovesM: ["TT-Hoves-Medium"],
         TTHovesSB: ["TT-Hoves-SemiBold"],

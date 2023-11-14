@@ -5,7 +5,7 @@ import IconTwitter from "../../icons/IconTwitter";
 const Footer = () => {
   return (
     <>
-      <div className="grid grid-cols-10 pt-20 px-10">
+      <div className="grid grid-cols-10 py-20 px-10">
         <div className="col-span-4">
           <p className="text-heading-big font-OTabolas text-dark-8">Suura</p>
           <p className="text-base text-dark-5 font-TTHoves w-[290px]">

@@ -12,7 +12,7 @@
 }
 
 .containerLeft {
-  @apply box-border object-contain h-full bg-pearl-white sm:h-full xl:h-[99%] 2xl:h-[96%] 3xl:h-[82%];
+  @apply box-border object-contain h-full bg-white pt-36 px-10;
 }
 
 .containerRight {
@@ -20,7 +20,7 @@
 }
 
 .messageText {
-  @apply text-base text-gray font-TTHoves;
+  @apply text-base text-gray font-TTHoves max-w-[520px];
 }
 
 .imageContainer {
@@ -37,4 +37,24 @@
 
 .buttonSecondary {
   @apply h-14 px-6 border border-gray-outline rounded-lg transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100 mb-4;
+}
+
+.stepItem {
+  @apply flex flex-row h-[90px] w-[309px];
+}
+
+.verticalLine {
+  @apply flex;
+}
+
+.stepItem:last-child .stepContainerRight .verticalLine {
+  @apply hidden;
+}
+
+.stepContainerRight {
+  @apply flex flex-col items-center;
+}
+
+.stepContainerLeft {
+  @apply flex flex-col ml-2;
 }
