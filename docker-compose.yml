@@ -23,8 +23,6 @@ services:
       - "3000:3000"
     networks:
       - my-network
-    volumes:
-      - ./backend:/usr/src/app
 
   frontend:
     build:
