@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app
 
 RUN npm i 
-#RUN npm i express --save
+RUN npm i --save express
 #RUN npm i zod-error --save
 
 #RUN npm install react-loader-spinner --force
