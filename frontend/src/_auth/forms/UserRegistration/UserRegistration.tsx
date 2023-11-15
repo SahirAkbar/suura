@@ -2,9 +2,12 @@
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../../common/CustomButton/CustomButton";
+import CustomDropdown from "../../../common/CustomDropdown/CustomDropdown";
 import CustomInput from "../../../common/CustomInput/CustomInput";
+import CustomTextArea from "../../../common/CustomTextArea/CustomTextArea";
 import IconAdd from "../../../icons/IconAdd";
 import IconArrowLeft from "../../../icons/IconArrowLeft";
+import IconBold from "../../../icons/IconBold";
 import IconBrowseJobs from "../../../icons/IconBrowseJobs";
 import IconCameraBlank from "../../../icons/IconCameraBlank";
 import IconCollaborate from "../../../icons/IconCollaborate";
@@ -12,12 +15,17 @@ import IconCollaborateBlank from "../../../icons/IconCollaborateBlank";
 import IconCreateGallery from "../../../icons/IconCreateGallery";
 import IconCreatePortfolio from "../../../icons/IconCreatePortfolio";
 import IconEditPortfolioBlank from "../../../icons/IconEditPortfolioBlank";
+import IconGallery from "../../../icons/IconGallery";
 import IconInstagramBlank from "../../../icons/IconInstagramBlank";
+import IconItalic from "../../../icons/IconItalic";
 import IconLineVertical from "../../../icons/IconLineVertical";
+import IconLink from "../../../icons/IconLink";
 import IconLinkPlatform from "../../../icons/IconLinkPlatform";
+import IconOrderedList from "../../../icons/IconOrderedList";
 import IconProfile from "../../../icons/IconProfile";
 import IconProfileImage from "../../../icons/IconProfileImage";
 import IconSessions from "../../../icons/IconSessions";
+import IconUnorderedList from "../../../icons/IconUnorderedList";
 import styles from "./UserRegistration.module.css";
 
 const steps = {
@@ -304,14 +312,104 @@ const UserRegistration: FC = () => {
                   Let's start with the basics. This is what your future dream
                   clients will see.
                 </p>
-                <div className="p-10">
-                  <p className="font-normal text-lg text-dark-8 font-OTabolas">
-                    Content coming soon!!!
-                  </p>
+                <div className="mb-24">
+                  <div className="relative py-4">
+                    <div>
+                      <div className="flex flex-row justify-center items-center border border-dashed border-gray-outline rounded-xl p-12 my-6">
+                        <div className="flex flex-col justify-center items-center mr-10">
+                          <div className="mb-1">
+                            <IconGallery />
+                          </div>
+                          <div className="flex m-1">
+                            <div className="text-base font-TTHovesM text-brown-10">
+                              Click to upload cover image
+                            </div>
+                            <div className="text-base font-TTHoves text-normal text-dark-5 ">
+                              &nbsp; or drag and drop
+                            </div>
+                          </div>
+                          <div className="text-xs font-TTHoves text-normal text-dark-5">
+                            PNG, JPG or GIF (Optimal size 1440 x 500px)
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute flex -bottom-24 left-2 ">
+                        <div className="border w-fit border-dashed border-gray-outline rounded-full p-16 bg-creame-1">
+                          <IconGallery />
+                        </div>
+                        <div className="flex flex-col justify-center items-center mr-10 pl-10">
+                          <div className="flex m-1 justify-start items-start">
+                            <div className="text-base font-TTHovesM text-brown-10">
+                              Click to upload profile image
+                            </div>
+                          </div>
+                          <div className="text-xs sfont-TTHoves text-normal text-dark-5">
+                            PNG or JPG (Optimal size 800 x 800px)
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="py-6">
+                <hr className="text-gray-outline mt-8" />
+                <div className="grid grid-cols-10 gap-2 mt-4">
+                  <div className="col-span-3">
+                    <div className="text-base text-dark-8 font-TTHoves font-semibold">
+                      Bio
+                    </div>
+                    <div className="text-body-thin text-gray-600 font-TTHovesEL">
+                      Write a short introduction.
+                    </div>
+                  </div>
+                  <div className="col-span-7 grid grid-rows-2 gap-2">
+                    <div className="row-span-2 grid grid-cols-7">
+                      <div className="col-span-4">
+                        <CustomDropdown
+                          options={[
+                            {
+                              id: "regular",
+                              value: "regular",
+                              label: "Regular",
+                            },
+                            { id: "bold", value: "bold", label: "Bold" },
+                            {
+                              id: "italic",
+                              value: "italic",
+                              label: "Italic",
+                            },
+                          ]}
+                          onChange={() => {}}
+                          onBlur={() => {}}
+                        />
+                      </div>
+                      <div className="flex col-span-2">
+                        <div className="flex items-center justify-around">
+                          <span className="font-TTHovesSB font-extrabold">
+                            <IconBold />
+                          </span>
+                          <span className="font-TTHovesSB italic">
+                            <IconItalic />
+                          </span>
+                          <span>
+                            <IconLink />
+                          </span>
+                          <span>
+                            <IconUnorderedList />
+                          </span>
+                          <span>
+                            <IconOrderedList />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row-span-4">
+                      <CustomTextArea />
+                    </div>
+                  </div>
+                </div>
+                <div className="py-16">
                   <CustomButton
-                    className="bg-brown-10 border-brown-10 text-white px-7 h-12 w-1/2"
+                    className="bg-brown-10 border-brown-10 text-white px-7 h-12 w-3/4"
                     onClick={() => {
                       pageChange(pages.NEXT);
                       stepIncrement(1);
