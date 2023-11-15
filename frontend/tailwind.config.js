@@ -109,6 +109,7 @@ export default {
         "pearl-white": "#FFFBF9",
         gray: "#7F8AA5",
         "gray-600": "#475467",
+        "gray-700": "#344054",
         "gray-outline": "#ABB2C4",
         "brown-10": "#C7987A",
         "tale-2": "#E9F1DB",
