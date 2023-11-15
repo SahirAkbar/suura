@@ -244,7 +244,7 @@ const UserRegistration: FC = () => {
                       type="text"
                       placeholder=""
                       label="First name"
-                      value="Danyal"
+                      value=""
                     />
                     <CustomInput type="text" placeholder="" label="Last name" />
                   </div>
