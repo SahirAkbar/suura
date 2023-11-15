@@ -20,7 +20,7 @@
 }
 
 .messageText {
-  @apply text-base text-gray font-TTHoves max-w-[520px];
+  @apply text-base text-gray font-TTHoves max-w-[605px];
 }
 
 .imageContainer {

@@ -1,4 +1,5 @@
 //@ts-nocheck
+import { useState } from "react";
 import styles from "./CustomInput.module.css";
 
 interface CustomInputProps {
@@ -7,8 +8,9 @@ interface CustomInputProps {
   label: string;
   placeholder: string;
   onChange?(): void;
+  onBlur?(): void;
   value?: string;
-  show: boolean;
+  required?: string;
 }
 
 const CustomInput: FC<CustomInputProps> = ({
@@ -17,25 +19,34 @@ const CustomInput: FC<CustomInputProps> = ({
   label,
   placeholder,
   onChange = () => {},
+  onBlur = () => {},
   value,
-  show = false,
+  required,
 }) => {
+  const [show, setShow] = useState(true);
   return (
     <div className={`relative w-full h-14 ${className}`}>
       <label className="absolute -top-3 left-4 bg-creame-1 text-gray text-base">
         {label}
       </label>
       <input
-        type={type}
+        type={!show ? "text" : type}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
         value={value}
         className={styles.input}
+        required={required}
       />
-      {show ? (
-        <span className="absolute right-2 top-[25%] text-gray cursor-pointer">
-          Show
-        </span>
+      {type === "password" ? (
+        <div
+          className="absolute right-2 top-[25%] text-gray cursor-pointer"
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          {show ? <span>Show</span> : <span>Hide</span>}
+        </div>
       ) : null}
     </div>
   );
