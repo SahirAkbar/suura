@@ -5,8 +5,13 @@ import CustomButton from "../../../common/CustomButton/CustomButton";
 import CustomInput from "../../../common/CustomInput/CustomInput";
 import IconAdd from "../../../icons/IconAdd";
 import IconArrowLeft from "../../../icons/IconArrowLeft";
+import IconBrowseJobs from "../../../icons/IconBrowseJobs";
+import IconCameraBlank from "../../../icons/IconCameraBlank";
 import IconCollaborate from "../../../icons/IconCollaborate";
+import IconCollaborateBlank from "../../../icons/IconCollaborateBlank";
+import IconCreateGallery from "../../../icons/IconCreateGallery";
 import IconCreatePortfolio from "../../../icons/IconCreatePortfolio";
+import IconEditPortfolioBlank from "../../../icons/IconEditPortfolioBlank";
 import IconInstagramBlank from "../../../icons/IconInstagramBlank";
 import IconLineVertical from "../../../icons/IconLineVertical";
 import IconLinkPlatform from "../../../icons/IconLinkPlatform";
@@ -256,6 +261,10 @@ const UserRegistration: FC = () => {
                       label="Username"
                     />
                   </div>
+                  <p className="bg-creame-1 text-gray text-base p-4 pt-0">
+                    Note: Usernames must be unique and cannot contain spaces or
+                    special characters.
+                  </p>
                   <div className="py-2">
                     <CustomInput
                       type="text"
@@ -530,13 +539,25 @@ const UserRegistration: FC = () => {
             <div className="flex flex-col justify-center items-center">
               <div className="w-[80%] flex flex-col items-center justify-center">
                 <div className="flex justify-around">
-                  <ExploreItem text="Connect to Instagram" />
-                  <ExploreItem text="Connect to Instagram" />
-                  <ExploreItem text="Connect to Instagram" />
+                  <ExploreItem
+                    icon={<IconEditPortfolioBlank />}
+                    text="Customise Portfolio"
+                  />
+                  <ExploreItem
+                    icon={<IconCameraBlank />}
+                    text="Manage My Shoots"
+                  />
+                  <ExploreItem
+                    icon={<IconCreateGallery />}
+                    text="Create a Client Gallery"
+                  />
                 </div>
                 <div className="flex justify-around">
-                  <ExploreItem text="Connect to Instagram" />
-                  <ExploreItem text="Connect to Instagram" />
+                  <ExploreItem
+                    icon={<IconCollaborateBlank />}
+                    text="Browse Collab Board"
+                  />
+                  <ExploreItem icon={<IconBrowseJobs />} text="Browse Jobs" />
                 </div>
               </div>
             </div>
@@ -719,13 +740,11 @@ const HelpItem = ({ text }) => {
   );
 };
 
-const ExploreItem = ({ text }) => {
+const ExploreItem = ({ icon, text }) => {
   return (
     <div className="flex flex-row items-center border border-dashed border-gray-outline rounded-xl p-8 my-6 mx-2">
       <div className="flex justify-around items-center mr-10">
-        <div className="mr-10">
-          <IconInstagramBlank bgColor="#FFFAF6" />
-        </div>
+        <div className="mr-10">{icon}</div>
         <IconLineVertical bgColor="#ABB2C4" />
       </div>
       <div className="col-span-6 text-base text-dark-8 font-TTHovesSB font-extrabold">

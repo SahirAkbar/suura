@@ -9,6 +9,7 @@ import { GoogleLogo } from "../../../icons/GoogleLogo";
 import { AppleLogo } from "../../../icons/AppleLogo";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import CustomButton from "../../../common/CustomButton/CustomButton";
+import CustomInput from "../../../common/CustomInput/CustomInput";
 
 const SignUpForm = () => {
   const { mutate } = useMutation(signin);
@@ -47,10 +48,9 @@ const SignUpForm = () => {
                   Lets create an account and start enjoying Suura
                 </p>
                 <div className="my-6">
-                  <input
+                  <CustomInput
                     type="text"
                     placeholder="Email"
-                    className={styles.formInput}
                     onChange={handleChange("email")}
                     onBlur={handleBlur("email")}
                     value={values.email}
@@ -61,10 +61,9 @@ const SignUpForm = () => {
                   <p className="form-error">{errors.email}</p>
                 ) : null}
                 <div className="mb-6">
-                  <input
+                  <CustomInput
                     type="password"
                     placeholder="Password"
-                    className={styles.formInput}
                     id="password-input"
                     onChange={handleChange("password")}
                     onBlur={handleBlur("password")}

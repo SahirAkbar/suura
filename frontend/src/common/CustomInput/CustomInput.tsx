@@ -8,7 +8,9 @@ interface CustomInputProps {
   label: string;
   placeholder: string;
   onChange?(): void;
+  onBlur?(): void;
   value?: string;
+  required?: string;
 }
 
 const CustomInput: FC<CustomInputProps> = ({
@@ -17,7 +19,9 @@ const CustomInput: FC<CustomInputProps> = ({
   label,
   placeholder,
   onChange = () => {},
+  onBlur = () => {},
   value,
+  required,
 }) => {
   const [show, setShow] = useState(true);
   return (
@@ -29,8 +33,10 @@ const CustomInput: FC<CustomInputProps> = ({
         type={!show ? "text" : type}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
         value={value}
         className={styles.input}
+        required={required}
       />
       {type === "password" ? (
         <div

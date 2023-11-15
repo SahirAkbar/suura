@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { Link } from "react-router-dom";
+import CustomButton from "../../../common/CustomButton/CustomButton";
 import CustomImage from "../../../common/CustomImage/CustomImage";
+import CustomInput from "../../../common/CustomInput/CustomInput";
 import { AppleLogo } from "../../../icons/AppleLogo";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import styles from "./SignInForm.module.css";
@@ -27,21 +29,18 @@ const SignInForm = () => {
                   Enter your registered email and password to log in.
                 </p>
                 <div className="my-6">
-                  <input
+                  <CustomInput
                     type="text"
                     placeholder="Email"
-                    className={styles.formInput}
                     id="email-input"
                   />
                 </div>
                 <div className="mb-6">
-                  <input
+                  <CustomInput
                     type="password"
                     placeholder="Password"
-                    className={styles.formInput}
                     id="password-input"
                   />
-                  <button className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-primary"></button>
                 </div>
 
                 <div className="flex items-start mb-6">
@@ -67,12 +66,12 @@ const SignInForm = () => {
                     Forgot Password?
                   </a>
                 </div>
-                <button
+                <CustomButton
                   type="submit"
-                  className="h-14 rounded-lg font-TTHoves text-lg text-white bg-brown-10 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
+                  className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-full"
                 >
                   Log in
-                </button>
+                </CustomButton>
                 <div className="text-center mt-2 mb-2">
                   <p className={styles.messageText}>
                     By clicking on login you agreed with the Suura's
