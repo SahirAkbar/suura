@@ -13,7 +13,7 @@ exports.registerEmailPassword = (req, res) => {
       }
      return    res.status(400).json({message: `Server Error${error.message}`});
     } else {
-  return    res.status(201).json({message: `User email and password created successfully ${results}`} );
+  return    res.status(201).json({message: `User email and password created successfully ${JSON.parse(results)}`} );
     }
   });
 };
