@@ -1,0 +1,60 @@
+.formInput {
+  @apply w-full h-14 rounded-xl border border-gray-outline py-2 px-5 bg-[#FCFDFE] text-gray font-TTHoves;
+  @apply placeholder-[#ACB6BE] outline-none focus-visible:shadow-none hover:border-gray focus:border-primary-500 bg-transparent;
+}
+
+.formInput::placeholder {
+  @apply text-gray font-TTHoves text-base;
+}
+
+.mainContainer {
+  @apply grid xs:grid-cols-1 lg:grid-cols-2 w-full h-full box-border;
+}
+
+.containerLeft {
+  @apply box-border object-contain h-full bg-white pt-36 px-10;
+}
+
+.containerRight {
+  @apply box-border object-contain sm:h-full xl:h-[99%] 2xl:h-[96%] 3xl:h-[82%] p-8 bg-white;
+}
+
+.messageText {
+  @apply text-base text-gray font-TTHoves max-w-[605px];
+}
+
+.imageContainer {
+  @apply h-full w-full object-contain rounded-xl relative;
+}
+
+.captionMessage {
+  @apply text-lg text-white font-TTHoves;
+}
+
+.authorContainer {
+  @apply flex items-center mt-6;
+}
+
+.buttonSecondary {
+  @apply h-14 px-6 border border-gray-outline rounded-lg transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100 mb-4;
+}
+
+.stepItem {
+  @apply flex flex-row h-[90px] w-[309px];
+}
+
+.verticalLine {
+  @apply flex;
+}
+
+.stepItem:last-child .stepContainerRight .verticalLine {
+  @apply hidden;
+}
+
+.stepContainerRight {
+  @apply flex flex-col items-center;
+}
+
+.stepContainerLeft {
+  @apply flex flex-col ml-2;
+}

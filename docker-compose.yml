@@ -1,16 +1,6 @@
 version: "3.7"
 
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend
-    ports:
-      - "80:80"
-    networks:
-      - my-network
-
   backend:
     build:
       context: ./backend
@@ -21,20 +11,33 @@ services:
       - "3000:3000"
     networks:
       - my-network
-    volumes:
-      - ./backend:/usr/src/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - my-network
 
   mysqldb:
-    image: mysql:latest
+    image: mysql:8.2
     command: --default-authentication-plugin=mysql_native_password
+    container_name: mysqldb
     restart: always
     environment:
       MYSQL_DATABASE: "suura"
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - mysql:/var/lib/mysql
+    expose: 
+      - "3306"
     ports: 
       - "3306:3306"
+    networks:
+      - my-network
 
 volumes:
   mysql:

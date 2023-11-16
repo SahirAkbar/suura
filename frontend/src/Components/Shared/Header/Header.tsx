@@ -49,9 +49,11 @@ export default function Header() {
             <CustomButton className="text-dark-5 border-tale-10 mx-2 px-7 ">
               Post a job
             </CustomButton>
-            <CustomButton className="bg-tale-10 border-tale-10 text-white mx-2 px-7">
-              Try for free
-            </CustomButton>
+            <Link to={"/signup"}>
+              <CustomButton className="bg-tale-10 border-tale-10 text-white mx-2 px-7">
+                Try for free
+              </CustomButton>
+            </Link>
 
             <Link to={"/login"}>
               <CustomButton className="bg-brown-10 border-brown-10 text-white mx-2 px-7">
