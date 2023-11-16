@@ -30,7 +30,7 @@ exports.registerUserInfo = (req, res) => {
     if (error) {
       console.log(error)
       console.error("Error: " + error.message);
-      res.status(500).send(error.message);
+     return  res.status(500).send(error.message);
     }
     
     if (results.affectedRows > 0) {
@@ -78,9 +78,9 @@ exports.connectInstagram = (req, res) => {
   userModel.updateUserInstagram(req.body.email, instagramProfile, (error, results) => {
     if (error) {
       console.error('Error: ' + error.message);
-      res.status(500).send('Error connecting Instagram account');
+    return  res.status(500).send('Error connecting Instagram account');
     } else {
-      res.status(200).json({ message: 'Instagram account connecte  d successfully' });
+   return    res.status(200).json({ message: 'Instagram account connecte  d successfully' });
     }
   });
 };
@@ -93,9 +93,9 @@ exports.selectSession = (req, res) => {
   userModel.updateUserSelectedSessions(email, selectedSessions, (error, results) => {
     if (error) {
       console.error('Error: ' + error.message);
-      res.status(500).send('Error updating selected sessions');
+   return    res.status(500).send('Error updating selected sessions');
     } else {
-      res.status(200).json({ message: 'Selected sessions updated successfully' });
+ return      res.status(200).json({ message: 'Selected sessions updated successfully' });
     }
   });
 };
