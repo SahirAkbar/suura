@@ -9,11 +9,11 @@ exports.registerEmailPassword = (req, res) => {
     if (error) {
       console.error('Error: ' + error.message);
       if (error.code === "ER_DUP_ENTRY") {
-      return  res.status(400).send("Email Already exists", error.message);
+        return res.status(400).json({message: `Email Already exists ${error.message}` });
       }
-     return    res.status(400).send("Server Error", error.message);
+     return    res.status(400).json({message: `Server Error${error.message}`});
     } else {
-  return    res.status(201).send("User email and password created successfully',results ");
+  return    res.status(201).send("User email and password created successfully",results );
     }
   });
 };
@@ -26,7 +26,7 @@ exports.registerUserInfo = (req, res) => {
   userModel.updateUser(id, userInfo, (error, results) => {
     if (error) {
         console.error("Error: " + error.message);
-     return  res.status(500).send(error.message);
+     return  res.status(500).json({message:error.message})
     }
     
     if (results.affectedRows > 0) {
@@ -53,7 +53,7 @@ exports.uploadImages = (req, res) => {
     console.log(id, profileImagePath,coverImagePath)
     if (error) {
       console.error('Error: ' + error.message);
-     return  res.status(500).send('Error updating user images');
+     return  res.status(500).json({message: 'Error updating user images'});
     }  
     if (results.affectedRows > 0) {
       return res.status(200).json({ message: "User images uploaded successfully" });
@@ -69,7 +69,7 @@ exports.connectInstagram = (req, res) => {
   userModel.updateUserInstagram(req.body.email, instagramProfile, (error, results) => {
     if (error) {
       console.error('Error: ' + error.message);
-    return  res.status(500).send('Error connecting Instagram account');
+    return  res.status(500).json({message: 'Error connecting Instagram account'});
     } else {
    return    res.status(200).json({ message: 'Instagram account connecte  d successfully' });
     }
@@ -84,7 +84,7 @@ exports.selectSession = (req, res) => {
   userModel.updateUserSelectedSessions(email, selectedSessions, (error, results) => {
     if (error) {
       console.error('Error: ' + error.message);
-   return    res.status(500).send('Error updating selected sessions');
+   return    res.status(500).json({message: 'Error updating selected sessions'});
     } else {
  return      res.status(200).json({ message: 'Selected sessions updated successfully' });
     }
