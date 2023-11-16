@@ -44,8 +44,8 @@ const updateUser = (id, userInfo, callback) => {
 //const updateUserImages = (email, coverImage, profileImage, callback) => {
  //   db.query('UPDATE users SET cover_image = ?, profile_image = ? WHERE email = ?', [coverImage, profileImage, email], callback);
  //};
-  const updateUserImages = (email, coverImage, profileImage, bio, callback) => {
-    db.query('UPDATE users SET cover_image = ?, profile_image = ?, bio = ? WHERE email = ?', [coverImage, profileImage, bio, email], callback);
+  const updateUserImages = (id, coverImage, profileImage, bio, callback) => {
+    db.query('UPDATE users SET cover_image = ?, profile_image = ?, bio = ? WHERE id = ?', [coverImage, profileImage, bio, id], callback);
   };
   //-------------------------------------------
   // ...

@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage });
   
   // Route for uploading cover image and profile image
-  router.post('/upload-images', upload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'profile_image', maxCount: 1 }]), userController.uploadImages);
+  router.post('/upload-images/:id', upload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'profile_image', maxCount: 1 }]), userController.uploadImages);
   //instagram route
   // Route to initiate Instagram authentication
   router.get('/register/connect-instagram', passport.authenticate('instagram'));
