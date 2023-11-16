@@ -8,13 +8,13 @@ exports.registerEmailPassword = (req, res) => {
     if (error) {
       console.error('Error: ' + error.message);
       if (error.code === "ER_DUP_ENTRY") {
-        res.status(500).send("Email Already exists");
+      return  res.status(400).send("Email Already exists", error.message);
       }
       else {
-        res.status(500).send("Server Error")
+     return    res.status(400).send("Server Error", error.message);
       }
     } else {
-      res.status(201).json({ message: 'User email and password created successfully',results });
+  return    res.status(201).json({ message: 'User email and password created successfully',results });
     }
   });
 };
