@@ -11,9 +11,7 @@ exports.registerEmailPassword = (req, res) => {
       if (error.code === "ER_DUP_ENTRY") {
       return  res.status(400).send("Email Already exists", error.message);
       }
-      else {
      return    res.status(400).send("Server Error", error.message);
-      }
     } else {
   return    res.status(201).json({ message: 'User email and password created successfully',results });
     }
@@ -25,11 +23,9 @@ exports.registerUserInfo = (req, res) => {
   const userInfo = req.body; // Assuming you're using body-parser
   const id = req.params.id;
   // Assuming you have a way to identify the user (e.g., based on their email)
-  const email = userInfo.email; // Use email or any other unique identifier
   userModel.updateUser(id, userInfo, (error, results) => {
     if (error) {
-      console.log(error)
-      console.error("Error: " + error.message);
+        console.error("Error: " + error.message);
      return  res.status(500).send(error.message);
     }
     
@@ -38,7 +34,6 @@ exports.registerUserInfo = (req, res) => {
         .status(200)
         .json({ message: "User information updated successfully" });
     }
-     
     return   res
         .status(404)
         .json({ message: "Invalid User Id" });
@@ -61,19 +56,15 @@ exports.uploadImages = (req, res) => {
      return  res.status(500).send('Error updating user images');
     }  
     if (results.affectedRows > 0) {
-      return res
-        .status(200)
-        .json({ message: "User images uploaded successfully" });
+      return res.status(200).json({ message: "User images uploaded successfully" });
     }
     return res.status(404).json({message:'Invalid Id user not found'})
-  
   });
 };
 // Controller for handling Instagram connection callback
 exports.connectInstagram = (req, res) => {
   // Access the Instagram profile from the 'req.user' object
   const instagramProfile = req.user;
-
   // Save the Instagram user profile information to your database
   userModel.updateUserInstagram(req.body.email, instagramProfile, (error, results) => {
     if (error) {
