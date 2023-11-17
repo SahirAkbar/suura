@@ -20,8 +20,8 @@ const Category: FC<CategoryProps> = ({
 }) => {
   return (
     <>
-      <div className="pt-16 pb-6">
-        <span className="font-TTHoves text-body-normal text-dark-5 my-2">
+      <div className="pt-6 pb-6">
+        <span className="inline-block font-TTHoves text-body-normal text-dark-5 mb-2">
           {title}
         </span>
         <div className="w-[437px] font-OTabolas text-sub-heading-bold text-dark-8">
@@ -66,7 +66,7 @@ const ListItem: FC<ListItemTypeProps> = ({ listHeader, listMessage }) => {
         <IconArrowCurve />
       </div>
       <div className="flex flex-col">
-        <div className="text-body-small font-semibold text-dark-8 pb-2">
+        <div className="text-body-small font-TTHovesSB font-semibold text-dark-8 pb-2">
           {listHeader}
         </div>
         <div className="text-base text-dark-5 font-TTHoves">{listMessage}</div>

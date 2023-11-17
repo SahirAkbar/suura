@@ -78,22 +78,22 @@ const stepListMock = [
   },
 ];
 
-const sessions = [
-  "Couples",
-  "Interior",
-  "Wedding",
-  "Elopement",
-  "Family",
-  "Maternity",
-  "New Born",
-  "Portraits",
-  "Graduation",
-  "Boudoir",
-  "Branding",
-  "Pets",
-  "Architecture",
-  "Product",
-  "Fashion",
+const sessionsMock = [
+  { id: 0, value: "Couples", selected: false },
+  { id: 1, value: "Interior", selected: false },
+  { id: 2, value: "Wedding", selected: false },
+  { id: 3, value: "Elopement", selected: false },
+  { id: 4, value: "Family", selected: false },
+  { id: 5, value: "Maternity", selected: false },
+  { id: 6, value: "New Born", selected: false },
+  { id: 7, value: "Portraits", selected: false },
+  { id: 8, value: "Graduation", selected: false },
+  { id: 9, value: "Boudoir", selected: false },
+  { id: 10, value: "Branding", selected: false },
+  { id: 11, value: "Pets", selected: false },
+  { id: 12, value: "Architecture", selected: false },
+  { id: 13, value: "Product", selected: false },
+  { id: 14, value: "Fashion", selected: false },
 ];
 
 const help = [
@@ -114,10 +114,11 @@ const offer = [
 
 const UserRegistration: FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [stepList, setSetpList] = useState(stepListMock);
+  const [stepList, setStepList] = useState(stepListMock);
   const [currentStep, setCurrentStep] = useState(0);
   const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState("");
+  const [sessions, setSessions] = useState(sessionsMock);
 
   const pageChange = (page) => {
     switch (page) {
@@ -136,6 +137,17 @@ const UserRegistration: FC = () => {
     }
   };
 
+  const setSessionValue = (id) => {
+    setSessions(
+      sessions.map((sessionItem) => {
+        if (sessionItem.id === id) {
+          return { ...sessionItem, selected: !sessionItem.selected };
+        }
+        return sessionItem;
+      })
+    );
+  };
+
   const stepIncrement = (stepId) => {
     const stepListUpdate = stepList.map((item) => {
       if (item.id === stepId) {
@@ -146,7 +158,7 @@ const UserRegistration: FC = () => {
       }
       return item;
     });
-    setSetpList(stepListUpdate);
+    setStepList(stepListUpdate);
     setCurrentStep(currentPage + 1);
   };
 
@@ -162,7 +174,7 @@ const UserRegistration: FC = () => {
       }
       return item;
     });
-    setSetpList(stepListUpdate);
+    setStepList(stepListUpdate);
     setCurrentStep(currentPage - 1);
   };
 
@@ -309,14 +321,14 @@ const UserRegistration: FC = () => {
                     <CustomInput
                       type="text"
                       placeholder="eg. johnsmith@gmail.com"
-                      label="Email address"
+                      label="Email Address"
                     />
                   </div>
                   <div className="py-2">
                     <CustomInput
                       type="text"
                       placeholder=""
-                      label="Business name"
+                      label="Business Name"
                     />
                   </div>
                   <div className="py-2">
@@ -389,7 +401,7 @@ const UserRegistration: FC = () => {
                           <IconGallery />
                         </div>
                         <div className="m-1 flex">
-                          <div className="text-base font-TTHovesM text-brown-10">
+                          <div className="text-base font-TTHovesM text-tale-10">
                             Click to upload cover image
                           </div>
                           <div className="text-base font-TTHoves text-normal text-dark-5 ">
@@ -430,7 +442,7 @@ const UserRegistration: FC = () => {
                         }}
                       >
                         <div className="flex m-1 justify-start items-start">
-                          <div className="text-base font-TTHovesM text-brown-10">
+                          <div className="text-base font-TTHovesM text-tale-10">
                             Click to upload profile image
                           </div>
                         </div>
@@ -522,8 +534,16 @@ const UserRegistration: FC = () => {
                 </p>
                 <div>
                   <div className="flex flex-row flex-wrap py-10">
-                    {sessions.map((item, index) => {
-                      return <SessionItem text={item} key={index} />;
+                    {sessions.map((item) => {
+                      return (
+                        <SessionItem
+                          item={item}
+                          key={item.id}
+                          onClick={() => {
+                            setSessionValue(item.id);
+                          }}
+                        />
+                      );
                     })}
                   </div>
                   <div className="py-6">
@@ -861,10 +881,16 @@ const getIcon = (icon: string, progress: string) => {
   }
 };
 
-const SessionItem = ({ text }) => {
+const SessionItem = ({ item, onClick = () => {} }) => {
+  const { value, selected } = item;
   return (
-    <div className="px-10 py-2 m-1 ml-0 bg-white border border-dark-1 rounded-xl w-fit text-dark-9 h-fit">
-      {text}
+    <div
+      className={`px-10 py-2 m-1 ml-0 ${
+        selected ? "bg-gray-outline text-white" : "bg-white text-dark-9"
+      } border border-dark-1 rounded-xl w-fit  h-fit`}
+      onClick={onClick}
+    >
+      {value}
     </div>
   );
 };

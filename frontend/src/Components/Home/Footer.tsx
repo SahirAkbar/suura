@@ -20,7 +20,7 @@ const Footer = () => {
         <div className="col-span-6 grid grid-cols-3 gap-44 font-TTHoves font-normal text-base">
           <div>
             <ul>
-              <p className="text-dark-9 pb-4">Features</p>
+              <p className="text-dark-9 pb-4 font-TTHovesSB">Features</p>
               <li className="text-dark-5 pb-4">Directory</li>
               <li className="text-dark-5 pb-4">Business</li>
               <li className="text-dark-5 pb-4">Galleries</li>
@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
           <div>
             <ul>
-              <p className="text-dark-9 pb-4">Quick Links</p>
+              <p className="text-dark-9 pb-4 font-TTHovesSB">Quick Links</p>
               <li className="text-dark-5 pb-4">Hire a photographer</li>
               <li className="text-dark-5 pb-4">Create Business Profile</li>
               <li className="text-dark-5 pb-4">Pricing</li>
@@ -38,7 +38,7 @@ const Footer = () => {
           </div>
           <div>
             <ul>
-              <p className="text-dark-9 pb-4">Connect</p>
+              <p className="text-dark-9 pb-4 font-TTHovesSB">Connect</p>
               <li className="text-dark-5 pb-4">Help Center</li>
               <li className="text-dark-5 pb-4">Contact us</li>
               <li className="text-dark-5 pb-4">FAQs</li>
