@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { signupFormSchema } from "../../Schema/SignupFormSchema";
 import { useMutation } from "react-query";
-import { signin } from "../../utils/https";
+import { signUp } from "../../utils/https";
 
 const SignupForm = () => {
-  const { mutate } = useMutation(signin);
+  const { mutate } = useMutation(signUp);
   const { errors, handleSubmit, handleChange, handleBlur, values, touched } =
     useFormik({
       initialValues: {
