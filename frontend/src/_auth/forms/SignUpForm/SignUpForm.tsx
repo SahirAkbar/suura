@@ -29,16 +29,16 @@ const SignUpForm = () => {
   console.log(errors);
   return (
     <div className={styles.mainContainer} onSubmit={handleSubmit}>
-      <div className={styles.containerLeft}>
-        <div className="absolute top-3 left-10">
-          <Link to="/" className="w-full">
-            <p className="text-body-bold text-primary text-dark-8 font-OTabolas z-10">
+      <div className={`relative ${styles.containerLeft}`}>
+        <div className="absolute top-3 left-10 flex felx-col">
+          <Link to="/">
+            <div className="inline text-body-bold text-primary text-dark-8 font-OTabolas z-100">
               Suura
-            </p>
+            </div>
           </Link>
         </div>
         <form>
-          <div className="relative pt-14 bg-gradient-to-br to-gray-200 ">
+          <div className="pt-14 bg-gradient-to-br to-gray-200 ">
             <div className="px-10 sm:px-16">
               <div className="grid m-10">
                 <p className="font-normal text-body-caption-bold text-dark-8 font-OTabolas">

@@ -40,7 +40,7 @@ const CustomInput: FC<CustomInputProps> = ({
       />
       {type === "password" ? (
         <div
-          className="absolute right-2 top-[25%] text-gray cursor-pointer"
+          className="absolute right-4 top-[25%] text-gray-100 cursor-pointer"
           onClick={() => {
             setShow(!show);
           }}

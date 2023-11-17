@@ -1,13 +1,11 @@
 //@ts-nocheck
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../../common/CustomButton/CustomButton";
-import CustomDropdown from "../../../common/CustomDropdown/CustomDropdown";
 import CustomInput from "../../../common/CustomInput/CustomInput";
-import CustomTextArea from "../../../common/CustomTextArea/CustomTextArea";
+import TextEditor from "../../../common/TextEditor/TextEditor";
 import IconAdd from "../../../icons/IconAdd";
 import IconArrowLeft from "../../../icons/IconArrowLeft";
-import IconBold from "../../../icons/IconBold";
 import IconBrowseJobs from "../../../icons/IconBrowseJobs";
 import IconCameraBlank from "../../../icons/IconCameraBlank";
 import IconCollaborate from "../../../icons/IconCollaborate";
@@ -17,15 +15,11 @@ import IconCreatePortfolio from "../../../icons/IconCreatePortfolio";
 import IconEditPortfolioBlank from "../../../icons/IconEditPortfolioBlank";
 import IconGallery from "../../../icons/IconGallery";
 import IconInstagramBlank from "../../../icons/IconInstagramBlank";
-import IconItalic from "../../../icons/IconItalic";
 import IconLineVertical from "../../../icons/IconLineVertical";
-import IconLink from "../../../icons/IconLink";
 import IconLinkPlatform from "../../../icons/IconLinkPlatform";
-import IconOrderedList from "../../../icons/IconOrderedList";
 import IconProfile from "../../../icons/IconProfile";
 import IconProfileImage from "../../../icons/IconProfileImage";
 import IconSessions from "../../../icons/IconSessions";
-import IconUnorderedList from "../../../icons/IconUnorderedList";
 import styles from "./UserRegistration.module.css";
 
 const steps = {
@@ -122,6 +116,8 @@ const UserRegistration: FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [stepList, setSetpList] = useState(stepListMock);
   const [currentStep, setCurrentStep] = useState(0);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [coverPicture, setCoverPicture] = useState("");
 
   const pageChange = (page) => {
     switch (page) {
@@ -168,6 +164,67 @@ const UserRegistration: FC = () => {
     });
     setSetpList(stepListUpdate);
     setCurrentStep(currentPage - 1);
+  };
+
+  const profilePictureRef = useRef(null);
+  const coverImageRef = useRef(null);
+
+  useEffect(() => {
+    const dropItemCover = coverImageRef.current;
+    const dropItemProfile = profilePictureRef.current;
+
+    dropItemCover.addEventListener("dragover", handleDragOverCover);
+    dropItemCover.addEventListener("drop", handleDropCover);
+    dropItemProfile.addEventListener("dragover", handleDragOverProfile);
+    dropItemProfile.addEventListener("drop", handleDropProfile);
+
+    return () => {
+      dropItemCover?.removeEventListener("dragover", handleDragOverCover);
+      dropItemCover?.removeEventListener("drop", handleDropCover);
+      dropItemProfile?.removeEventListener("dragover", handleDragOverProfile);
+      dropItemProfile?.removeEventListener("drop", handleDropProfile);
+    };
+  }, []);
+
+  const handleDragOverProfile = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDropProfile = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { files } = e.dataTransfer;
+
+    if (files && files.length) {
+      const file = new FileReader();
+      file.onload = function () {
+        setProfilePicture(file.result);
+      };
+      file.readAsDataURL(files[0]);
+    }
+  };
+
+  const handleDragOverCover = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDropCover = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { files } = e.dataTransfer;
+
+    if (files && files.length) {
+      const file = new FileReader();
+      file.onload = function () {
+        console.log("file", file.result);
+        setCoverPicture(file.result);
+      };
+      file.readAsDataURL(files[0]);
+    }
   };
 
   return (
@@ -312,40 +369,73 @@ const UserRegistration: FC = () => {
                   Let's start with the basics. This is what your future dream
                   clients will see.
                 </p>
-                <div className="mb-24">
+                <div className="mb-24" id="cover-pic" ref={coverImageRef}>
                   <div className="relative py-4">
-                    <div>
-                      <div className="flex flex-row justify-center items-center border border-dashed border-gray-outline rounded-xl p-12 my-6">
-                        <div className="flex flex-col justify-center items-center mr-10">
-                          <div className="mb-1">
-                            <IconGallery />
-                          </div>
-                          <div className="flex m-1">
-                            <div className="text-base font-TTHovesM text-brown-10">
-                              Click to upload cover image
-                            </div>
-                            <div className="text-base font-TTHoves text-normal text-dark-5 ">
-                              &nbsp; or drag and drop
-                            </div>
-                          </div>
-                          <div className="text-xs font-TTHoves text-normal text-dark-5">
-                            PNG, JPG or GIF (Optimal size 1440 x 500px)
-                          </div>
-                        </div>
-                      </div>
-                      <div className="absolute flex -bottom-24 left-2 ">
-                        <div className="border w-fit border-dashed border-gray-outline rounded-full p-16 bg-creame-1">
+                    <div
+                      className={`relative flex flex-row justify-center items-center border  border-gray-outline rounded-xl p-12 my-6 ${
+                        coverPicture ? "border-solid" : "border-dashed"
+                      }`}
+                      style={{
+                        backgroundImage: `url(${coverPicture})`,
+                        backgroundSize: "100%",
+                      }}
+                    >
+                      <div
+                        className={`flex flex-col justify-center items-center mr-10 ${
+                          coverPicture ? "invisible" : "visible"
+                        }`}
+                      >
+                        <div className="mb-1">
                           <IconGallery />
                         </div>
-                        <div className="flex flex-col justify-center items-center mr-10 pl-10">
-                          <div className="flex m-1 justify-start items-start">
-                            <div className="text-base font-TTHovesM text-brown-10">
-                              Click to upload profile image
-                            </div>
+                        <div className="m-1 flex">
+                          <div className="text-base font-TTHovesM text-brown-10">
+                            Click to upload cover image
                           </div>
-                          <div className="text-xs sfont-TTHoves text-normal text-dark-5">
-                            PNG or JPG (Optimal size 800 x 800px)
+                          <div className="text-base font-TTHoves text-normal text-dark-5 ">
+                            &nbsp; or drag and drop
                           </div>
+                        </div>
+                        <div className="text-xs font-TTHoves text-normal text-dark-5">
+                          PNG, JPG or GIF (Optimal size 1440 x 500px)
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="absolute flex -bottom-24 left-2"
+                      id="profile-pic"
+                      ref={profilePictureRef}
+                    >
+                      <div
+                        className={`border w-fit ${
+                          profilePicture ? "border-solid " : "border-dashed"
+                        } border-gray-outline rounded-full p-16 bg-creame-1`}
+                        style={{
+                          backgroundImage: `url(${profilePicture})`,
+                          backgroundSize: "100%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            visibility: profilePicture ? "hidden" : "visible",
+                          }}
+                        >
+                          <IconGallery />
+                        </div>
+                      </div>
+                      <div
+                        className="flex flex-col justify-center items-center mr-10 pl-10"
+                        style={{
+                          visibility: profilePicture ? "hidden" : "visible",
+                        }}
+                      >
+                        <div className="flex m-1 justify-start items-start">
+                          <div className="text-base font-TTHovesM text-brown-10">
+                            Click to upload profile image
+                          </div>
+                        </div>
+                        <div className="text-xs sfont-TTHoves text-normal text-dark-5">
+                          PNG or JPG (Optimal size 800 x 800px)
                         </div>
                       </div>
                     </div>
@@ -361,50 +451,8 @@ const UserRegistration: FC = () => {
                       Write a short introduction.
                     </div>
                   </div>
-                  <div className="col-span-7 grid grid-rows-2 gap-2">
-                    <div className="row-span-2 grid grid-cols-7">
-                      <div className="col-span-4">
-                        <CustomDropdown
-                          options={[
-                            {
-                              id: "regular",
-                              value: "regular",
-                              label: "Regular",
-                            },
-                            { id: "bold", value: "bold", label: "Bold" },
-                            {
-                              id: "italic",
-                              value: "italic",
-                              label: "Italic",
-                            },
-                          ]}
-                          onChange={() => {}}
-                          onBlur={() => {}}
-                        />
-                      </div>
-                      <div className="flex col-span-2">
-                        <div className="flex items-center justify-around">
-                          <span className="font-TTHovesSB font-extrabold">
-                            <IconBold />
-                          </span>
-                          <span className="font-TTHovesSB italic">
-                            <IconItalic />
-                          </span>
-                          <span>
-                            <IconLink />
-                          </span>
-                          <span>
-                            <IconUnorderedList />
-                          </span>
-                          <span>
-                            <IconOrderedList />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row-span-4">
-                      <CustomTextArea />
-                    </div>
+                  <div className="col-span-7">
+                    <TextEditor />
                   </div>
                 </div>
                 <div className="py-16">
