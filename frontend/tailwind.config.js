@@ -108,6 +108,7 @@ export default {
         "light-4": "#5C5C7B",
         "pearl-white": "#FFFBF9",
         gray: "#7F8AA5",
+        "gray-100": "#D2D5DC",
         "gray-600": "#475467",
         "gray-700": "#344054",
         "gray-outline": "#ABB2C4",

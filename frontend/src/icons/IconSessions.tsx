@@ -24,23 +24,23 @@ const IconSessions = ({
         <path
           d="M17.6334 29.3332H26.3667C28.6667 29.3332 29.5834 27.9248 29.6917 26.2082L30.1251 19.3248C30.2417 17.5248 28.8084 15.9998 27.0001 15.9998C26.4917 15.9998 26.0251 15.7082 25.7917 15.2582L25.1917 14.0498C24.8084 13.2915 23.8084 12.6665 22.9584 12.6665H21.0501C20.1917 12.6665 19.1917 13.2915 18.8084 14.0498L18.2084 15.2582C17.9751 15.7082 17.5084 15.9998 17.0001 15.9998C15.1917 15.9998 13.7584 17.5248 13.8751 19.3248L14.3084 26.2082C14.4084 27.9248 15.3334 29.3332 17.6334 29.3332Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M20.75 17.6665H23.25"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M22.0001 26.0002C23.4917 26.0002 24.7084 24.7835 24.7084 23.2918C24.7084 21.8002 23.4917 20.5835 22.0001 20.5835C20.5084 20.5835 19.2917 21.8002 19.2917 23.2918C19.2917 24.7835 20.5084 26.0002 22.0001 26.0002Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -51,9 +51,9 @@ const IconSessions = ({
           width="44"
           height="44"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

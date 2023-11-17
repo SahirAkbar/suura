@@ -21,23 +21,23 @@ const IconProfileImage = ({ bgColor, color, outline = "#EAECF0" }) => {
         <path
           d="M22.0999 21.6502C22.0416 21.6419 21.9666 21.6419 21.8999 21.6502C20.4333 21.6002 19.2666 20.4002 19.2666 18.9252C19.2666 17.4169 20.4833 16.1919 21.9999 16.1919C23.5083 16.1919 24.7333 17.4169 24.7333 18.9252C24.7249 20.4002 23.5666 21.6002 22.0999 21.6502Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M27.6166 27.1498C26.1333 28.5081 24.1666 29.3331 22 29.3331C19.8333 29.3331 17.8666 28.5081 16.3833 27.1498C16.4666 26.3665 16.9666 25.5998 17.8583 24.9998C20.1416 23.4831 23.875 23.4831 26.1416 24.9998C27.0333 25.5998 27.5333 26.3665 27.6166 27.1498Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M22.0001 29.3332C26.6025 29.3332 30.3334 25.6022 30.3334 20.9998C30.3334 16.3975 26.6025 12.6665 22.0001 12.6665C17.3977 12.6665 13.6667 16.3975 13.6667 20.9998C13.6667 25.6022 17.3977 29.3332 22.0001 29.3332Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -48,9 +48,9 @@ const IconProfileImage = ({ bgColor, color, outline = "#EAECF0" }) => {
           width="44"
           height="44"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

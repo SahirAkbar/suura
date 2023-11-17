@@ -32,6 +32,7 @@ const CustomDropdown: FC<CustomDropdownProps> = ({
       >
         {options.map((optionItem: DropDownItem) => (
           <option
+            key={optionItem.id}
             id={optionItem.id}
             value={optionItem.value}
             className={styles.optionItem}

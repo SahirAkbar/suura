@@ -1,30 +1,48 @@
 // @ts-nocheck
+import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import CustomImage from "../../../common/CustomImage/CustomImage";
 import CustomInput from "../../../common/CustomInput/CustomInput";
+import { signInFormSchema } from "../../../Schema/SignInFormSchema";
+import { useMutation } from "react-query";
 import { AppleLogo } from "../../../icons/AppleLogo";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import styles from "./SignInForm.module.css";
+import { signIn } from "../../../utils/https";
 
 const SignInForm = () => {
+  const { mutate } = useMutation(signIn);
+  const { errors, handleSubmit, handleChange, handleBlur, values, touched } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validationSchema: signInFormSchema,
+      onSubmit: (values) => {
+        mutate(values);
+        // action.resetForm();
+      },
+    });
+
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.containerLeft}>
-        <div className="absolute top-3 left-10">
+    <div className={styles.mainContainer} onSubmit={handleSubmit}>
+      <div className={`relative ${styles.containerLeft}`}>
+        <div className="absolute top-3 left-10 flex felx-col">
           <Link to="/">
-            <p className="text-body-bold text-primary text-dark-8 font-OTabolas z-10">
+            <div className="inline text-body-bold text-primary text-dark-8 font-OTabolas z-100">
               Suura
-            </p>
+            </div>
           </Link>
         </div>
         <form>
-          <div className="relative pt-14 bg-gradient-to-br to-gray-200 ">
+          <div className="pt-14 bg-gradient-to-br to-gray-200 ">
             <div className="px-10 sm:px-16">
               <div className="grid m-10">
-                <p className="font-normal text-body-caption-bold text-dark-8 font-OTabolas">
+                <div className="font-normal text-body-caption-bold text-dark-8 font-OTabolas">
                   Glad you are back!
-                </p>
+                </div>
                 <p className={`mt-1 ${styles.messageText}`}>
                   Enter your registered email and password to log in.
                 </p>
@@ -33,14 +51,26 @@ const SignInForm = () => {
                     type="text"
                     placeholder="Email"
                     id="email-input"
+                    onChange={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
                   />
+                  {errors.email && touched.email ? (
+                    <div className="form-error">{errors.email}</div>
+                  ) : null}
                 </div>
                 <div className="mb-6">
                   <CustomInput
                     type="password"
                     placeholder="Password"
                     id="password-input"
+                    onChange={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
                   />
+                  {errors.password && touched.password ? (
+                    <div className="form-error">{errors.password}</div>
+                  ) : null}
                 </div>
 
                 <div className="flex items-start mb-6">
@@ -73,10 +103,10 @@ const SignInForm = () => {
                 </CustomButton>
                 <div className="text-center mt-2 mb-2">
                   <p className={styles.messageText}>
-                    By clicking on login you agreed with the Suura's
+                    By clicking on log in you agreed with the Suura’s
                   </p>
                   <p className={styles.messageText}>
-                    terms of service & privancy guidelines
+                    terms of service & privacy guidelines
                   </p>
                   <div className="relative py-4">
                     <div className="absolute inset-0 flex items-center">

@@ -24,23 +24,23 @@ const IconLinkPlatform = ({
         <path
           d="M19.5001 29.3332H24.5001C28.6667 29.3332 30.3334 27.6665 30.3334 23.4998V18.4998C30.3334 14.3332 28.6667 12.6665 24.5001 12.6665H19.5001C15.3334 12.6665 13.6667 14.3332 13.6667 18.4998V23.4998C13.6667 27.6665 15.3334 29.3332 19.5001 29.3332Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M21.9999 23.9168C23.6107 23.9168 24.9166 22.611 24.9166 21.0002C24.9166 19.3893 23.6107 18.0835 21.9999 18.0835C20.3891 18.0835 19.0833 19.3893 19.0833 21.0002C19.0833 22.611 20.3891 23.9168 21.9999 23.9168Z"
           stroke={color}
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M26.6968 16.8332H26.7065"
           stroke={color}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <defs>
@@ -51,9 +51,9 @@ const IconLinkPlatform = ({
           width="44"
           height="44"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

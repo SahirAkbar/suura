@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { signupFormSchema } from "../../../Schema/SignupFormSchema";
 import { useMutation } from "react-query";
-import { signin } from "../../../utils/https";
+import { signUp } from "../../../utils/https";
 import styles from "./SignUpForm.module.css";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import { AppleLogo } from "../../../icons/AppleLogo";
@@ -12,7 +12,7 @@ import CustomButton from "../../../common/CustomButton/CustomButton";
 import CustomInput from "../../../common/CustomInput/CustomInput";
 
 const SignUpForm = () => {
-  const { mutate } = useMutation(signin);
+  const { mutate } = useMutation(signUp);
   const { errors, handleSubmit, handleChange, handleBlur, values, touched } =
     useFormik({
       initialValues: {
@@ -29,16 +29,16 @@ const SignUpForm = () => {
   console.log(errors);
   return (
     <div className={styles.mainContainer} onSubmit={handleSubmit}>
-      <div className={styles.containerLeft}>
-        <div className="absolute top-3 left-10">
-          <Link to="/" className="w-full">
-            <p className="text-body-bold text-primary text-dark-8 font-OTabolas z-10">
+      <div className={`relative ${styles.containerLeft}`}>
+        <div className="absolute top-3 left-10 flex felx-col">
+          <Link to="/">
+            <div className="inline text-body-bold text-primary text-dark-8 font-OTabolas z-100">
               Suura
-            </p>
+            </div>
           </Link>
         </div>
         <form>
-          <div className="relative pt-14 bg-gradient-to-br to-gray-200 ">
+          <div className="pt-14 bg-gradient-to-br to-gray-200 ">
             <div className="px-10 sm:px-16">
               <div className="grid m-10">
                 <p className="font-normal text-body-caption-bold text-dark-8 font-OTabolas">
@@ -56,10 +56,10 @@ const SignUpForm = () => {
                     value={values.email}
                     id="email-input"
                   />
+                  {errors.email && touched.email ? (
+                    <div className="form-error">{errors.email}</div>
+                  ) : null}
                 </div>
-                {errors.email && touched.email ? (
-                  <p className="form-error">{errors.email}</p>
-                ) : null}
                 <div className="mb-6">
                   <CustomInput
                     type="password"
@@ -70,21 +70,22 @@ const SignUpForm = () => {
                     value={values.password}
                   />
                   {errors.password && touched.password ? (
-                    <p className="form-error">{errors.password}</p>
+                    <div className="form-error">{errors.password}</div>
                   ) : null}
                   <button className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-primary"></button>
                 </div>
-                <Link to="/registration">
-                  <CustomButton className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-full">
-                    Create account
-                  </CustomButton>
-                </Link>
+                <CustomButton
+                  type="submit"
+                  className="bg-brown-10 border-brown-10 text-white px-7 h-14 w-full"
+                >
+                  Create account
+                </CustomButton>
                 <div className="text-center mt-2 mb-2">
                   <p className={styles.messageText}>
                     By creating an account you agreed with the Suura’s
                   </p>
                   <p className={styles.messageText}>
-                    terms of service & privancy guidelines
+                    terms of service & privacy guidelines
                   </p>
                   <div className="relative py-4">
                     <div className="absolute inset-0 flex items-center">

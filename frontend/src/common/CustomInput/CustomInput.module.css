@@ -1,5 +1,5 @@
 .input {
-  @apply w-full h-full rounded-xl border border-gray-outline py-2 pl-5 pr-12 bg-[#FCFDFE] text-dark-8 font-TTHoves;
+  @apply w-full h-full rounded-xl border border-gray-outline py-2 pl-5 pr-14 bg-[#FCFDFE] text-dark-8 font-TTHoves;
   @apply placeholder-[#ACB6BE] outline-none focus-visible:shadow-none hover:border-gray focus:border-primary-500 bg-transparent;
 }
 

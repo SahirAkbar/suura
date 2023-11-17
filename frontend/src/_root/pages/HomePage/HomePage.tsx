@@ -27,49 +27,53 @@ const HomePage = () => {
       <div className="mb-32">
         <ImagesGrid />
       </div>
-      <div className="grid grid-cols-2 w-full">
-        <div className="px-10 pb-10">
-          <span className="font-TTHoves text-body-normal text-dark-5 my-2">
-            Hire talents
-          </span>
-          <div className="w-[437px] font-OTabolas text-sub-heading-bold text-dark-8">
-            <p>
-              Seeking Professional and undiscovered photographers
-              <span className="ml-2 relative align-middle">
-                <span className="bottom-0 inline-block">
-                  <div>
-                    <CustomImage
-                      src="/assets/author-image-2.jpg"
-                      altText="signup-display-picture"
-                      className="h-10 w-10 rounded-full"
-                    />
-                  </div>
-                </span>
-                <span className="-ml-2 inline-block">
-                  <div>
-                    <CustomImage
-                      src="/assets/author-image-3.jpg"
-                      altText="signup-display-picture"
-                      className="h-10 w-10 rounded-full"
-                    />
-                  </div>
-                </span>
-              </span>
-            </p>
-          </div>
+
+      <div>
+        <div className="font-TTHoves text-body-normal text-dark-5 my-2 px-10">
+          Hire talents
         </div>
-        <div>
-          <div className="font-TTHoves text-dark-8-5 text-normal w-[424px] my-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam
+        <div className="grid grid-cols-2 w-full">
+          <div className="px-10 pb-10">
+            <div className="w-[437px] font-OTabolas text-sub-heading-bold text-dark-8">
+              <p>
+                Seeking Professional and undiscovered photographers
+                <span className="ml-2 relative align-middle">
+                  <span className="bottom-0 inline-block">
+                    <div>
+                      <CustomImage
+                        src="/assets/author-image-2.jpg"
+                        altText="signup-display-picture"
+                        className="h-10 w-10 rounded-full"
+                      />
+                    </div>
+                  </span>
+                  <span className="-ml-2 inline-block">
+                    <div>
+                      <CustomImage
+                        src="/assets/author-image-3.jpg"
+                        altText="signup-display-picture"
+                        className="h-10 w-10 rounded-full"
+                      />
+                    </div>
+                  </span>
+                </span>
+              </p>
+            </div>
           </div>
-          <CustomButton className="flex items-center bg-brown-10 text-white border-none">
-            <span className="px-2">Discover now</span>
-            <IconSearch color="white" />
-          </CustomButton>
+          <div>
+            <div className="font-TTHoves text-dark-8-5 text-normal w-[424px] mb-8">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam
+            </div>
+            <CustomButton className="flex items-center bg-brown-10 text-white border-none">
+              <span className="px-2">Discover now</span>
+              <IconSearch color="white" />
+            </CustomButton>
+          </div>
         </div>
       </div>
+
       <div className="grid grid-cols-4 gap-4 h-[435px] p-10 box-content-">
         <Photographer
           src="/assets/homepage-photographer-1.jpg"

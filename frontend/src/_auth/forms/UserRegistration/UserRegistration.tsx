@@ -1,13 +1,11 @@
 //@ts-nocheck
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../../common/CustomButton/CustomButton";
-import CustomDropdown from "../../../common/CustomDropdown/CustomDropdown";
 import CustomInput from "../../../common/CustomInput/CustomInput";
-import CustomTextArea from "../../../common/CustomTextArea/CustomTextArea";
+import TextEditor from "../../../common/TextEditor/TextEditor";
 import IconAdd from "../../../icons/IconAdd";
 import IconArrowLeft from "../../../icons/IconArrowLeft";
-import IconBold from "../../../icons/IconBold";
 import IconBrowseJobs from "../../../icons/IconBrowseJobs";
 import IconCameraBlank from "../../../icons/IconCameraBlank";
 import IconCollaborate from "../../../icons/IconCollaborate";
@@ -17,15 +15,11 @@ import IconCreatePortfolio from "../../../icons/IconCreatePortfolio";
 import IconEditPortfolioBlank from "../../../icons/IconEditPortfolioBlank";
 import IconGallery from "../../../icons/IconGallery";
 import IconInstagramBlank from "../../../icons/IconInstagramBlank";
-import IconItalic from "../../../icons/IconItalic";
 import IconLineVertical from "../../../icons/IconLineVertical";
-import IconLink from "../../../icons/IconLink";
 import IconLinkPlatform from "../../../icons/IconLinkPlatform";
-import IconOrderedList from "../../../icons/IconOrderedList";
 import IconProfile from "../../../icons/IconProfile";
 import IconProfileImage from "../../../icons/IconProfileImage";
 import IconSessions from "../../../icons/IconSessions";
-import IconUnorderedList from "../../../icons/IconUnorderedList";
 import styles from "./UserRegistration.module.css";
 
 const steps = {
@@ -84,22 +78,22 @@ const stepListMock = [
   },
 ];
 
-const sessions = [
-  "Couples",
-  "Interior",
-  "Wedding",
-  "Elopement",
-  "Family",
-  "Maternity",
-  "New Born",
-  "Portraits",
-  "Graduation",
-  "Boudoir",
-  "Branding",
-  "Pets",
-  "Architecture",
-  "Product",
-  "Fashion",
+const sessionsMock = [
+  { id: 0, value: "Couples", selected: false },
+  { id: 1, value: "Interior", selected: false },
+  { id: 2, value: "Wedding", selected: false },
+  { id: 3, value: "Elopement", selected: false },
+  { id: 4, value: "Family", selected: false },
+  { id: 5, value: "Maternity", selected: false },
+  { id: 6, value: "New Born", selected: false },
+  { id: 7, value: "Portraits", selected: false },
+  { id: 8, value: "Graduation", selected: false },
+  { id: 9, value: "Boudoir", selected: false },
+  { id: 10, value: "Branding", selected: false },
+  { id: 11, value: "Pets", selected: false },
+  { id: 12, value: "Architecture", selected: false },
+  { id: 13, value: "Product", selected: false },
+  { id: 14, value: "Fashion", selected: false },
 ];
 
 const help = [
@@ -120,8 +114,11 @@ const offer = [
 
 const UserRegistration: FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [stepList, setSetpList] = useState(stepListMock);
+  const [stepList, setStepList] = useState(stepListMock);
   const [currentStep, setCurrentStep] = useState(0);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [coverPicture, setCoverPicture] = useState("");
+  const [sessions, setSessions] = useState(sessionsMock);
 
   const pageChange = (page) => {
     switch (page) {
@@ -140,6 +137,17 @@ const UserRegistration: FC = () => {
     }
   };
 
+  const setSessionValue = (id) => {
+    setSessions(
+      sessions.map((sessionItem) => {
+        if (sessionItem.id === id) {
+          return { ...sessionItem, selected: !sessionItem.selected };
+        }
+        return sessionItem;
+      })
+    );
+  };
+
   const stepIncrement = (stepId) => {
     const stepListUpdate = stepList.map((item) => {
       if (item.id === stepId) {
@@ -150,7 +158,7 @@ const UserRegistration: FC = () => {
       }
       return item;
     });
-    setSetpList(stepListUpdate);
+    setStepList(stepListUpdate);
     setCurrentStep(currentPage + 1);
   };
 
@@ -166,8 +174,69 @@ const UserRegistration: FC = () => {
       }
       return item;
     });
-    setSetpList(stepListUpdate);
+    setStepList(stepListUpdate);
     setCurrentStep(currentPage - 1);
+  };
+
+  const profilePictureRef = useRef(null);
+  const coverImageRef = useRef(null);
+
+  useEffect(() => {
+    const dropItemCover = coverImageRef.current;
+    const dropItemProfile = profilePictureRef.current;
+
+    dropItemCover.addEventListener("dragover", handleDragOverCover);
+    dropItemCover.addEventListener("drop", handleDropCover);
+    dropItemProfile.addEventListener("dragover", handleDragOverProfile);
+    dropItemProfile.addEventListener("drop", handleDropProfile);
+
+    return () => {
+      dropItemCover?.removeEventListener("dragover", handleDragOverCover);
+      dropItemCover?.removeEventListener("drop", handleDropCover);
+      dropItemProfile?.removeEventListener("dragover", handleDragOverProfile);
+      dropItemProfile?.removeEventListener("drop", handleDropProfile);
+    };
+  }, []);
+
+  const handleDragOverProfile = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDropProfile = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { files } = e.dataTransfer;
+
+    if (files && files.length) {
+      const file = new FileReader();
+      file.onload = function () {
+        setProfilePicture(file.result);
+      };
+      file.readAsDataURL(files[0]);
+    }
+  };
+
+  const handleDragOverCover = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDropCover = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const { files } = e.dataTransfer;
+
+    if (files && files.length) {
+      const file = new FileReader();
+      file.onload = function () {
+        console.log("file", file.result);
+        setCoverPicture(file.result);
+      };
+      file.readAsDataURL(files[0]);
+    }
   };
 
   return (
@@ -252,14 +321,14 @@ const UserRegistration: FC = () => {
                     <CustomInput
                       type="text"
                       placeholder="eg. johnsmith@gmail.com"
-                      label="Email address"
+                      label="Email Address"
                     />
                   </div>
                   <div className="py-2">
                     <CustomInput
                       type="text"
                       placeholder=""
-                      label="Business name"
+                      label="Business Name"
                     />
                   </div>
                   <div className="py-2">
@@ -312,40 +381,73 @@ const UserRegistration: FC = () => {
                   Let's start with the basics. This is what your future dream
                   clients will see.
                 </p>
-                <div className="mb-24">
+                <div className="mb-24" id="cover-pic" ref={coverImageRef}>
                   <div className="relative py-4">
-                    <div>
-                      <div className="flex flex-row justify-center items-center border border-dashed border-gray-outline rounded-xl p-12 my-6">
-                        <div className="flex flex-col justify-center items-center mr-10">
-                          <div className="mb-1">
-                            <IconGallery />
-                          </div>
-                          <div className="flex m-1">
-                            <div className="text-base font-TTHovesM text-brown-10">
-                              Click to upload cover image
-                            </div>
-                            <div className="text-base font-TTHoves text-normal text-dark-5 ">
-                              &nbsp; or drag and drop
-                            </div>
-                          </div>
-                          <div className="text-xs font-TTHoves text-normal text-dark-5">
-                            PNG, JPG or GIF (Optimal size 1440 x 500px)
-                          </div>
-                        </div>
-                      </div>
-                      <div className="absolute flex -bottom-24 left-2 ">
-                        <div className="border w-fit border-dashed border-gray-outline rounded-full p-16 bg-creame-1">
+                    <div
+                      className={`relative flex flex-row justify-center items-center border  border-gray-outline rounded-xl p-12 my-6 ${
+                        coverPicture ? "border-solid" : "border-dashed"
+                      }`}
+                      style={{
+                        backgroundImage: `url(${coverPicture})`,
+                        backgroundSize: "100%",
+                      }}
+                    >
+                      <div
+                        className={`flex flex-col justify-center items-center mr-10 ${
+                          coverPicture ? "invisible" : "visible"
+                        }`}
+                      >
+                        <div className="mb-1">
                           <IconGallery />
                         </div>
-                        <div className="flex flex-col justify-center items-center mr-10 pl-10">
-                          <div className="flex m-1 justify-start items-start">
-                            <div className="text-base font-TTHovesM text-brown-10">
-                              Click to upload profile image
-                            </div>
+                        <div className="m-1 flex">
+                          <div className="text-base font-TTHovesM text-tale-10">
+                            Click to upload cover image
                           </div>
-                          <div className="text-xs sfont-TTHoves text-normal text-dark-5">
-                            PNG or JPG (Optimal size 800 x 800px)
+                          <div className="text-base font-TTHoves text-normal text-dark-5 ">
+                            &nbsp; or drag and drop
                           </div>
+                        </div>
+                        <div className="text-xs font-TTHoves text-normal text-dark-5">
+                          PNG, JPG or GIF (Optimal size 1440 x 500px)
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="absolute flex -bottom-24 left-2"
+                      id="profile-pic"
+                      ref={profilePictureRef}
+                    >
+                      <div
+                        className={`border w-fit ${
+                          profilePicture ? "border-solid " : "border-dashed"
+                        } border-gray-outline rounded-full p-16 bg-creame-1`}
+                        style={{
+                          backgroundImage: `url(${profilePicture})`,
+                          backgroundSize: "100%",
+                        }}
+                      >
+                        <div
+                          style={{
+                            visibility: profilePicture ? "hidden" : "visible",
+                          }}
+                        >
+                          <IconGallery />
+                        </div>
+                      </div>
+                      <div
+                        className="flex flex-col justify-center items-center mr-10 pl-10"
+                        style={{
+                          visibility: profilePicture ? "hidden" : "visible",
+                        }}
+                      >
+                        <div className="flex m-1 justify-start items-start">
+                          <div className="text-base font-TTHovesM text-tale-10">
+                            Click to upload profile image
+                          </div>
+                        </div>
+                        <div className="text-xs sfont-TTHoves text-normal text-dark-5">
+                          PNG or JPG (Optimal size 800 x 800px)
                         </div>
                       </div>
                     </div>
@@ -361,50 +463,8 @@ const UserRegistration: FC = () => {
                       Write a short introduction.
                     </div>
                   </div>
-                  <div className="col-span-7 grid grid-rows-2 gap-2">
-                    <div className="row-span-2 grid grid-cols-7">
-                      <div className="col-span-4">
-                        <CustomDropdown
-                          options={[
-                            {
-                              id: "regular",
-                              value: "regular",
-                              label: "Regular",
-                            },
-                            { id: "bold", value: "bold", label: "Bold" },
-                            {
-                              id: "italic",
-                              value: "italic",
-                              label: "Italic",
-                            },
-                          ]}
-                          onChange={() => {}}
-                          onBlur={() => {}}
-                        />
-                      </div>
-                      <div className="flex col-span-2">
-                        <div className="flex items-center justify-around">
-                          <span className="font-TTHovesSB font-extrabold">
-                            <IconBold />
-                          </span>
-                          <span className="font-TTHovesSB italic">
-                            <IconItalic />
-                          </span>
-                          <span>
-                            <IconLink />
-                          </span>
-                          <span>
-                            <IconUnorderedList />
-                          </span>
-                          <span>
-                            <IconOrderedList />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row-span-4">
-                      <CustomTextArea />
-                    </div>
+                  <div className="col-span-7">
+                    <TextEditor />
                   </div>
                 </div>
                 <div className="py-16">
@@ -474,8 +534,16 @@ const UserRegistration: FC = () => {
                 </p>
                 <div>
                   <div className="flex flex-row flex-wrap py-10">
-                    {sessions.map((item, index) => {
-                      return <SessionItem text={item} key={index} />;
+                    {sessions.map((item) => {
+                      return (
+                        <SessionItem
+                          item={item}
+                          key={item.id}
+                          onClick={() => {
+                            setSessionValue(item.id);
+                          }}
+                        />
+                      );
                     })}
                   </div>
                   <div className="py-6">
@@ -813,10 +881,16 @@ const getIcon = (icon: string, progress: string) => {
   }
 };
 
-const SessionItem = ({ text }) => {
+const SessionItem = ({ item, onClick = () => {} }) => {
+  const { value, selected } = item;
   return (
-    <div className="px-10 py-2 m-1 ml-0 bg-white border border-dark-1 rounded-xl w-fit text-dark-9 h-fit">
-      {text}
+    <div
+      className={`px-10 py-2 m-1 ml-0 ${
+        selected ? "bg-gray-outline text-white" : "bg-white text-dark-9"
+      } border border-dark-1 rounded-xl w-fit  h-fit`}
+      onClick={onClick}
+    >
+      {value}
     </div>
   );
 };
