@@ -7,10 +7,15 @@ const port = process.env.PORT || 3000;
 var cors = require("cors");
 app.use(cors());
 app.use(bodyParser.json());
+
 app.use('/api/user', userRoutes);
+app.get('/', (req, res, next) => {
+  res.sendStatus(200)
+})
 app.use((error, req, res, next) => {
   return res.send(error);
 })
+
 sequelize.sync( ).then(() => {
   console.log("database Connected");
   app.listen(port, () => {
