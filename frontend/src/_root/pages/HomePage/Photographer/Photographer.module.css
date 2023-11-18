@@ -1,0 +1,24 @@
+.authorContainer {
+  @apply flex items-center mt-6;
+}
+
+.imageContainer {
+  @apply h-full w-full object-contain rounded-xl relative;
+}
+
+.photographerName {
+  @apply text-body-medium text-white font-TTHovesSB font-semibold;
+}
+
+.photographerLocation {
+  @apply text-base text-white font-TTHovesM;
+  /* @apply flex items-center mt-6; */
+}
+
+.photographerButton {
+  @apply text-base text-white font-OTabolasM border-white;
+}
+
+.photographerButton ul {
+  @apply list-disc;
+}
