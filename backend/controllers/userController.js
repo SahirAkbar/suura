@@ -1,5 +1,7 @@
 const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const _ = require('lodash');
 // Controller for the first page - entering email and password
 exports.registerEmailPassword =async (req, res,next) => {
   const { email, password } = req.body; // Assuming you're using body-parser
@@ -85,3 +87,28 @@ exports.selectSession = (req, res) => {
     }
   });
 };
+exports.userLogin = async (req, res, next) => {
+  const { email,password} = req.body
+  try {
+    let user = await userModel.findOne({ where: { email } })
+    if (user) {
+      if (bcrypt.compareSync(password, user.password)) {
+        console.log("matched")
+        const userRecord = user.dataValues;
+        const userValues = _.omit(userRecord, "password");
+        var token = jwt.sign(userValues, "shhhhh");
+        return res
+          .status(200)
+          .json({  token, userValues });
+      } else {
+        return res.status(401).json({ message: "Incorrect Password"  });
+      }
+    }
+    else {
+      return res.status(404).json({message:'Invalid Email Address'})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}

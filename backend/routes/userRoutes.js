@@ -14,7 +14,11 @@ router.post(
   validate(RegisterSchmea),
   userController.registerEmailPassword
 );
-
+router.post(
+  "/login",
+  validate(RegisterSchmea),
+  userController.userLogin
+);
 // Route for the second page with additional user information
 router.post(
   "/register/user-info/:id",
