@@ -1,65 +1,61 @@
-const userModel = require('../models/user');
-
+const userModel = require('../models/userModel');
+const bcrypt = require('bcrypt')
 // Controller for the first page - entering email and password
-exports.registerEmailPassword = (req, res) => {
-  console.log("Request for creating user naem and password recieved")
+exports.registerEmailPassword =async (req, res,next) => {
   const { email, password } = req.body; // Assuming you're using body-parser
   const userData = { email, password };
-  userModel.createUser(userData, (error, results) => {
-    if (error) {
-      console.error('Error: ' + error.message);
-      if (error.code === "ER_DUP_ENTRY") {
-        return res.status(400).json({message: `Email Already exists ${error.message}` });
-      }
-     return    res.status(400).json({message: `Server Error${error.message}`});
-    } else {
-  return    res.status(201).json({message: `User email and password created successfully`,results} );
-    }
-  });
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  userData.password = hashedPassword
+  try {
+    let response = await userModel.create(userData)
+    res.status(200).json({message:'Success',response})
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
 };
-
 // Controller for the second page with additional user information
-exports.registerUserInfo = (req, res) => {
+exports.registerUserInfo = async(req, res,next) => {
   const userInfo = req.body; // Assuming you're using body-parser
   const id = req.params.id;
-  // Assuming you have a way to identify the user (e.g., based on their email)
-  userModel.updateUser(id, userInfo, (error, results) => {
-    if (error) {
-        console.error("Error: " + error.message);
-     return  res.status(500).json({message:error.message})
+  try {
+    let record = await userModel.findByPk(id);
+    if (record) {
+      record.set(userInfo)
+      let result = await record.save();
+      return res.status(200).json({message:'Updated Successfully',result})
+    } else {
+      return res.status(404).json({message:'Invalid id '})
     }
-    
-    if (results.affectedRows > 0) {
-      return res
-        .status(200)
-        .json({ message: "User information updated successfully" });
-    }
-    return   res
-        .status(404)
-        .json({ message: "Invalid User Id" });
-   
-  });
+  } catch (error) {
+    next(error)
+  }
 };
 //controller for image upload
-exports.uploadImages = (req, res) => {
+exports.uploadImages = async (req, res,next) => {
   const id = req.params.id;
-  console.log(id)
   const { cover_image, profile_image } = req.files;
   const coverImagePath = cover_image[0].path;
   const profileImagePath = profile_image[0].path;
   const bio = req.body.bio;
-
-  userModel.updateUserImages(id, coverImagePath, profileImagePath, bio, (error, results) => {
-    console.log(id, profileImagePath,coverImagePath)
-    if (error) {
-      console.error('Error: ' + error.message);
-     return  res.status(500).json({message: 'Error updating user images'});
-    }  
-    if (results.affectedRows > 0) {
-      return res.status(200).json({ message: "User images uploaded successfully" });
+  console.log(req.files)
+ try {
+    let record = await userModel.findByPk(id);
+    if (record) {
+      record.set({
+        cover_image: coverImagePath,
+        profile_image:profileImagePath,
+        bio,
+      });
+      let result = await record.save();
+      return res.status(200).json({message:'Updated Successfully',result})
+    } else {
+      return res.status(404).json({message:'Invalid id '})
     }
-    return res.status(404).json({message:'Invalid Id user not found'})
-  });
+  } catch (error) {
+    next(error)
+  }
+  
 };
 // Controller for handling Instagram connection callback
 exports.connectInstagram = (req, res) => {
@@ -79,7 +75,6 @@ exports.connectInstagram = (req, res) => {
 // Controller for selecting the user's preferred session
 exports.selectSession = (req, res) => {
   const { email, selectedSessions } = req.body;
-
   // Assuming you have a function to update the user's profile with the selected sessions
   userModel.updateUserSelectedSessions(email, selectedSessions, (error, results) => {
     if (error) {
