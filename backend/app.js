@@ -4,7 +4,8 @@ const userRoutes = require('./routes/userRoutes');
 const sequelize = require('./utils/sequelizeConnection')
 const app = express();
 const port = process.env.PORT || 3000;
-
+var cors = require("cors");
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/user', userRoutes);
 app.use((error, req, res, next) => {
