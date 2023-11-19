@@ -2,8 +2,8 @@ const { Sequelize } = require("sequelize");
 const tedious = require("tedious");
 
 const sequelize = new Sequelize("suura", "root", "root", {
-  host: "mysqldb",
+  host: "localhost",
   dialect: "mysql",
-  port: 3306,
+  port: 4306,
 });
 module.exports = sequelize;
