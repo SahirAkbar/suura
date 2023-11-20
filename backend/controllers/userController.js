@@ -35,13 +35,13 @@ exports.registerUserInfo = async(req, res,next) => {
 };
 //controller for image upload
 exports.uploadImages = async (req, res,next) => {
+  try {
   const id = req.params.id;
   const { cover_image, profile_image } = req.files;
   const coverImagePath = cover_image[0].path;
   const profileImagePath = profile_image[0].path;
   const bio = req.body.bio;
   console.log(req.files)
- try {
     let record = await userModel.findByPk(id);
     if (record) {
       record.set({
