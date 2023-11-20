@@ -6,7 +6,7 @@ export const signUp = async (values: any) => {
   console.log("signUp", { values });
   try {
     const response = await axiosInstance.get(
-      "/user/register/user-info",
+      "/user/register/email-password",
       values
     );
     return response.data;
@@ -18,10 +18,7 @@ export const signUp = async (values: any) => {
 export const signIn = async (values: any) => {
   console.log("signIn", { values });
   try {
-    const response = await axiosInstance.get(
-      "/user/register/user-info",
-      values
-    );
+    const response = await axiosInstance.get("/user/login", values);
     return response.data;
   } catch (error: any) {
     throw error.response;
