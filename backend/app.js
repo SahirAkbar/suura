@@ -19,7 +19,7 @@ app.use((error, req, res, next) => {
   return res.send(error);
 })
 
-sequelize.sync( {force:true}).then(() => {
+sequelize.sync().then(() => {
   console.log("database Connected");
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
