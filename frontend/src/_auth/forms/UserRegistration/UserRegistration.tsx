@@ -21,6 +21,13 @@ import IconProfile from "../../../icons/IconProfile";
 import IconProfileImage from "../../../icons/IconProfileImage";
 import IconSessions from "../../../icons/IconSessions";
 import styles from "./UserRegistration.module.css";
+import { useFormik } from "formik";
+import { CreateProfileSchema } from "../../../Schema/CreateProfileSchema";
+import { useMutation } from "react-query";
+import { registration } from "../../../utils/https";
+import { State as statesData, City as citiesData } from "country-state-city";
+import CustomDropdown from "../../../common/CustomDropdown/CustomDropdown";
+import { data as currencyData } from "currency-codes";
 
 const steps = {
   COMPLETE: "complete",
@@ -119,6 +126,40 @@ const UserRegistration: FC = () => {
   const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState("");
   const [sessions, setSessions] = useState(sessionsMock);
+
+  const NetherLandStates = statesData.getStatesOfCountry("NL");
+  const [selectedStateCode, setSelectedStateCode] = useState<string>("");
+  const filterdCities = citiesData.getCitiesOfState("NL", selectedStateCode);
+  const [selectedCityCode, setSelectedCityCode] = useState<string>("");
+
+  const onStateChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedStateCode(e.target.value);
+  };
+
+  const onCityChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCityCode(e.target.value);
+  };
+
+  const { mutate } = useMutation(registration);
+  const {
+    errors,
+    handleSubmit: handlePage1Submit,
+    handleChange,
+    handleBlur,
+    values,
+    touched,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: CreateProfileSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      mutate(values);
+      // action.resetForm();
+    },
+  });
 
   const pageChange = (page) => {
     switch (page) {
@@ -239,6 +280,15 @@ const UserRegistration: FC = () => {
     }
   };
 
+  const onSubmitClick = (page) => {
+    switch (page) {
+      case "page-1": {
+        handlePage1Submit();
+        break;
+      }
+    }
+  };
+
   return (
     <div className="grid grid-cols-10 w-full">
       {currentPage < 6 ? (
@@ -307,14 +357,18 @@ const UserRegistration: FC = () => {
                 </p>
               </div>
               <div>
-                <form className="p-10">
+                <form className="p-10" onSubmit={() => onSubmitClick("page-1")}>
                   <div className="grid grid-cols-2 gap-4 py-2">
                     <CustomInput
                       type="text"
                       placeholder=""
                       label="First name"
-                      value=""
+                      value={values.first_name}
+                      onChange={handleChange("first_name")}
+                      onBlur={handleBlur("first_name")}
+                      error={errors.first_name}
                     />
+                    {/* {errors ? <p>{errors.first_name}</p> : null} */}
                     <CustomInput type="text" placeholder="" label="Last name" />
                   </div>
                   <div className="py-2">
@@ -322,6 +376,8 @@ const UserRegistration: FC = () => {
                       type="text"
                       placeholder="eg. johnsmith@gmail.com"
                       label="Email Address"
+                      onChange={handleChange("email")}
+                      onBlur={handleBlur("email")}
                     />
                   </div>
                   <div className="py-2">
@@ -329,6 +385,8 @@ const UserRegistration: FC = () => {
                       type="text"
                       placeholder=""
                       label="Business Name"
+                      onChange={handleChange("businessName")}
+                      onBlur={handleBlur("businessName")}
                     />
                   </div>
                   <div className="py-2">
@@ -336,6 +394,8 @@ const UserRegistration: FC = () => {
                       type="text"
                       placeholder="eg. johnsmith"
                       label="Username"
+                      onChange={handleChange("username")}
+                      onBlur={handleBlur("username")}
                     />
                   </div>
                   <p className="bg-creame-1 text-gray text-base p-4 pt-0">
@@ -343,15 +403,57 @@ const UserRegistration: FC = () => {
                     special characters.
                   </p>
                   <div className="py-2">
-                    <CustomInput
-                      type="text"
-                      placeholder="eg. New York"
-                      label="Location"
-                    />
+                    <div className="grid grid-cols-2 gap-5 mt-2 ">
+                      <CustomDropdown
+                        options={NetherLandStates}
+                        onChange={onStateChange}
+                        onBlur={() => {}}
+                        label="State"
+                      >
+                        {NetherLandStates.map((state) => (
+                          <option value={state.isoCode} key={state.isoCode}>
+                            {" "}
+                            {`${state.name}`}
+                          </option>
+                        ))}
+                      </CustomDropdown>
+                      {/* {errors.firstName && touched.firstName ? <p className="form-error">{errors.firstName}</p> : null} */}
+                      <CustomDropdown
+                        onChange={onCityChange}
+                        onBlur={() => {}}
+                        label="City"
+                        disabled={!filterdCities.length}
+                      >
+                        {filterdCities.map((city) => (
+                          <option value={city.name} key={city.name}>
+                            {" "}
+                            {`${city.name}`}
+                          </option>
+                        ))}
+                      </CustomDropdown>
+                      {/* {errors.surName && touched.surName ? <p className="form-error">{errors.surName}</p> : null} */}
+                    </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 py-2">
-                    <CustomInput type="text" placeholder="" label="Time Zone" />
-                    <CustomInput type="text" placeholder="" label="Currency" />
+                    <CustomInput
+                      type="text"
+                      placeholder=""
+                      label="Time Zone"
+                      onChange={handleChange("time_zone")}
+                      onBlur={handleBlur("time_zone")}
+                    />
+                    <CustomDropdown
+                      onChange={handleChange("currency")}
+                      onBlur={() => {}}
+                      label="Currency"
+                    >
+                      {currencyData.map((item) => (
+                        <option value={item.code} key={item.code}>
+                          {" "}
+                          {`${item.currency} | ${item.code}`}
+                        </option>
+                      ))}
+                    </CustomDropdown>
                   </div>
                   <div className="py-6">
                     <CustomButton
