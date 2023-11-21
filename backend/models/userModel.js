@@ -53,6 +53,10 @@ const UserModel = sequelize.define(
       type: DataTypes.JSON,
       allowNull: true,
     },
+    preferences: {
+      type: DataTypes.JSON,
+      allowNull:true
+    }
   },
   {
     tableName: "users",
