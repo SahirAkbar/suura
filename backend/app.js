@@ -9,7 +9,6 @@ const port = process.env.PORT || 3000;
 var cors = require("cors");
 app.use(cors());
 app.use(bodyParser.json());
-
 app.use('/api/photographer',photographerRouter)
 app.use('/api/user', userRoutes);
 app.use('/api/account/settings', accountsRouter);
@@ -20,7 +19,7 @@ app.use((error, req, res, next) => {
   return res.send(error);
 })
 
-sequelize.sync( ).then(() => {
+sequelize.sync( {force:true}).then(() => {
   console.log("database Connected");
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
