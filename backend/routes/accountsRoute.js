@@ -1,23 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
 const accountsController = require('../controllers/accountController');
-
-const passport = require('passport');
 const validate = require('../MiddleWare/AuthenticateSchema');
-const RegisterSchmea = require('../Schema/registerSchema')
-const signupSchema = require("../Schema/signupSchema")
-const upload = require('../MiddleWare/ImageUpload');
-const userImageControler = require('../controllers/userImagesController')
-// Route for the first page to enter email and password
-
-
-
-// // Route for updating account settings
-// router.post('/update-account/:id', validate(signupSchema), userController.updateAccountSettings);
-
+const EmailPreferencesSchema = require('../Schema/EmailPerfernceSchema');
 
 // Route for updating account settings
-router.post('/profile/:id', validate(signupSchema), accountsController.updateAccountProfile);
-
+router.post('/profile/:id', accountsController.updateAccountProfile);
+router.post('/preferences/:id', validate(EmailPreferencesSchema),accountsController.preferences)
 module.exports = router;

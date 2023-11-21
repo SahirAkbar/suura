@@ -51,3 +51,24 @@ exports.updateAccountProfile = async (req, res, next) => {
     next(error);
   }
 };
+exports.preferences = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    let { preferences } = req.body;
+    console.log(preferences,"Prefereneces")
+    let record = await userModel.findByPk(id);
+    if (record) {
+      record.set({
+        preferences: preferences
+      });
+      let result =await record.save();
+      return res.status(200).json({ message: 'Updated Successfully' ,result});
+    } else {
+      return res.status(401).json("invalid Id");
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
