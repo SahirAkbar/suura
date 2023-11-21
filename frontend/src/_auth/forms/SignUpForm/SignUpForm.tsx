@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
 import { signupFormSchema } from "../../../Schema/SignupFormSchema";
 import { useMutation } from "react-query";
 import { signUp } from "../../../utils/https";
+import { Link } from "react-router-dom";
 import styles from "./SignUpForm.module.css";
 import { GoogleLogo } from "../../../icons/GoogleLogo";
 import { AppleLogo } from "../../../icons/AppleLogo";
