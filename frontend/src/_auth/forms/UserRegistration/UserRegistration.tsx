@@ -1,5 +1,14 @@
 //@ts-nocheck
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  forwardRef,
+  Ref,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import CustomInput from "../../../common/CustomInput/CustomInput";
@@ -221,6 +230,120 @@ const UserRegistration: FC = () => {
 
   const profilePictureRef = useRef(null);
   const coverImageRef = useRef(null);
+  const profileImageInputRef = useRef(null);
+  const coverImageInputRef = useRef(null);
+
+  const onProfileImageClick = () => {
+    profileImageInputRef?.current?.click();
+  };
+
+  const onCoverImageClick = () => {
+    coverImageInputRef?.current?.click();
+  };
+
+  const handleInputChange = (e) => {
+    const { target } = e;
+
+    const fileObject = target.files[0];
+
+    if (fileObject) {
+      const file = new FileReader();
+      console.log(file);
+      file.onload = function () {
+        if (target.id === "profile-file") {
+          setProfilePicture(file.result);
+        } else {
+          setCoverPicture(file.result);
+        }
+      };
+      file.readAsDataURL(fileObject);
+    }
+  };
+  /*   const handleAddFiles = (e) => {
+    const { target } = e;
+
+    const fileObject = target.files[0];
+
+    if (fileObject) {
+      const file = new FileReader();
+      console.log(file);
+      file.onload = function () {
+        if (target.id === "profile-file") {
+          setProfilePicture(file.result);
+        } else {
+          setCoverPicture(file.result);
+        }
+      };
+      file.readAsDataURL(fileObject);
+    }
+  }; */
+
+  const allImage11Ref = useRef(null);
+  const allImage12Ref = useRef(null);
+  const allImage13Ref = useRef(null);
+  const allImage14Ref = useRef(null);
+  const allImage21Ref = useRef(null);
+  const allImage22Ref = useRef(null);
+  const allImage23Ref = useRef(null);
+  const allImage24Ref = useRef(null);
+
+  const handleAddFiles = (id) => {
+    console.log(`${id}-file`);
+    switch (`${id}-file`) {
+      case "add-item-11-file": {
+        allImage11Ref?.current.click();
+        break;
+      }
+      case "add-item-12-file": {
+        allImage12Ref?.current.click();
+        break;
+      }
+      case "add-item-13-file": {
+        allImage13Ref?.current.click();
+        break;
+      }
+      case "add-item-14-file": {
+        allImage14Ref?.current.click();
+        break;
+      }
+      case "add-item-21-file": {
+        allImage21Ref?.current.click();
+        break;
+      }
+      case "add-item-22-file": {
+        allImage22Ref?.current.click();
+        break;
+      }
+      case "add-item-23-file": {
+        allImage23Ref?.current.click();
+        break;
+      }
+      case "add-item-24-file": {
+        allImage24Ref?.current.click();
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  };
+
+  /*   alert();
+  const { target } = e;
+  const fileObject = target.files[0];
+
+  console.log({ fileObject });
+  if (fileObject) {
+    const file = new FileReader();
+    fileObject.onload = function () {
+      if (target.id === "profile-file") {
+        setProfilePicture(file.result);
+      } else {
+        setCoverPicture(file.result);
+      }
+    };
+    file.readAsDataURL(fileObject);
+  } */
 
   useEffect(() => {
     const dropItemCover = coverImageRef.current;
@@ -286,6 +409,23 @@ const UserRegistration: FC = () => {
         handlePage1Submit();
         break;
       }
+    }
+  };
+
+  const [portfolioItem, setPortfolioItem] = useState(null);
+
+  const handleAllInputChange = (e) => {
+    const { target } = e;
+
+    const fileObject = target.files[0];
+
+    console.log(fileObject);
+    if (fileObject) {
+      const file = new FileReader();
+      file.onload = function () {
+        setPortfolioItem(file.result);
+      };
+      file.readAsDataURL(fileObject);
     }
   };
 
@@ -493,12 +633,21 @@ const UserRegistration: FC = () => {
                         backgroundImage: `url(${coverPicture})`,
                         backgroundSize: "100%",
                       }}
+                      onClick={onCoverImageClick}
                     >
                       <div
                         className={`flex flex-col justify-center items-center mr-10 ${
                           coverPicture ? "invisible" : "visible"
                         }`}
                       >
+                        <input
+                          type="file"
+                          id="cover-file"
+                          ref={coverImageInputRef}
+                          className="hidden"
+                          accept="image/*"
+                          onChange={handleInputChange}
+                        />
                         <div className="mb-1">
                           <IconGallery />
                         </div>
@@ -528,12 +677,21 @@ const UserRegistration: FC = () => {
                           backgroundImage: `url(${profilePicture})`,
                           backgroundSize: "100%",
                         }}
+                        onClick={onProfileImageClick}
                       >
                         <div
                           style={{
                             visibility: profilePicture ? "hidden" : "visible",
                           }}
                         >
+                          <input
+                            type="file"
+                            id="profile-file"
+                            ref={profileImageInputRef}
+                            className="hidden"
+                            accept="image/*"
+                            onChange={handleInputChange}
+                          />
                           <IconGallery />
                         </div>
                       </div>
@@ -685,10 +843,10 @@ const UserRegistration: FC = () => {
                       Max 100mb per image. JPEG, PNG, and GIF files accepted.
                     </div>
                     <div className="flex">
-                      <AddFileItem />
-                      <AddFileItem />
-                      <AddFileItem />
-                      <AddFileItem />
+                      <AddFileItem id="add-item-13" ref={allImage11Ref} />
+                      <AddFileItem id="add-item-13" ref={allImage12Ref} />
+                      <AddFileItem id="add-item-13" ref={allImage13Ref} />
+                      <AddFileItem id="add-item-14" ref={allImage14Ref} />
                     </div>
                   </div>
                   <hr className="text-gray-outline mt-6 mr-16" />
@@ -700,10 +858,10 @@ const UserRegistration: FC = () => {
                       Max 100mb per image. JPEG, PNG, and GIF files accepted.
                     </div>
                     <div className="flex">
-                      <AddFileItem />
-                      <AddFileItem />
-                      <AddFileItem />
-                      <AddFileItem />
+                      <AddFileItem id="add-item-11" ref={allImage21Ref} />
+                      <AddFileItem id="add-item-12" ref={allImage22Ref} />
+                      <AddFileItem id="add-item-13" ref={allImage23Ref} />
+                      <AddFileItem id="add-item-14" ref={allImage24Ref} />
                     </div>
                   </div>
                   <div className="py-6">
@@ -988,7 +1146,7 @@ const SessionItem = ({ item, onClick = () => {} }) => {
   return (
     <div
       className={`px-10 py-2 m-1 ml-0 ${
-        selected ? "bg-gray-outline text-white" : "bg-white text-dark-9"
+        selected ? "bg-dark-9 text-white border-white" : "bg-white text-dark-9"
       } border border-dark-1 rounded-xl w-fit  h-fit`}
       onClick={onClick}
     >
@@ -997,13 +1155,59 @@ const SessionItem = ({ item, onClick = () => {} }) => {
   );
 };
 
-const AddFileItem = () => {
+type Ref = HTMLInputElement;
+interface AddFileItemProps {
+  id: string;
+  onChange(): void;
+}
+
+const AddFileItem = forwardRef<Ref, AddFileItemProps>(({ id }) => {
+  const [portfolioItem, setPortfolioItem] = useState(null);
+
+  const handleClick = () => {
+    inputRef?.current.click();
+  };
+
+  const handleAllInputChange = (e) => {
+    const { target } = e;
+
+    const fileObject = target.files[0];
+
+    if (fileObject) {
+      const file = new FileReader();
+      file.onload = function () {
+        setPortfolioItem(file.result);
+      };
+      file.readAsDataURL(fileObject);
+    }
+  };
+
+  const inputRef = useRef(null);
+
   return (
-    <div className="flex flex-row justify-center items-center border border-dashed border-gray-outline rounded-xl w-[190px] h-[240px] p-8 my-6 mr-3">
-      <IconAdd />
+    <div
+      id={id}
+      className={`flex flex-row justify-center items-center border border-gray-outline ${
+        portfolioItem ? "border-solid border-dark-8" : "border-dashed"
+      } rounded-xl w-[190px] h-[240px] p-8 my-6 mr-3`}
+      style={{
+        backgroundImage: `url(${portfolioItem})`,
+        backgroundSize: "100%",
+      }}
+      onClick={handleClick}
+    >
+      {!portfolioItem ? <IconAdd /> : null}
+      <input
+        type="file"
+        id={`${id}-file`}
+        ref={inputRef}
+        className="hidden"
+        accept="image/*"
+        onChange={handleAllInputChange}
+      />
     </div>
   );
-};
+});
 
 const HelpItem = ({ text }) => {
   return (
