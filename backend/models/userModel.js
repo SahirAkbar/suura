@@ -52,6 +52,29 @@ const UserModel = sequelize.define(
     OfferServices: {
       type: DataTypes.JSON,
       allowNull: true,
+    },  // New fields for preferences
+    accepts_clients: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    availability_reminders: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    hourly_rate: {
+      type: DataTypes.STRING(100),
+    },
+    time_zones: {
+      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
+    },
+    extended_hours: {
+      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
+    },
+    languages: {
+      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
+    },
+    proficiency_level: {
+      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
     },
     preferences: {
       type: DataTypes.JSON,

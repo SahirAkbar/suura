@@ -51,7 +51,15 @@ router.post(
   ]),
   userImageControler.showCase
 );
+
 router.post("/serviceOffer",authenticateToken, userImageControler.servicesOffers);
-// more routes to be added here
+
+
+
+
+router.post("/work_preference", userController.updateWorkPreference);
+router.post("/service_preference", userController.updateServicePreference);
+router.post("/profile_language", userController.updateProfileLanguage);
+ more routes to be added here
 
 module.exports = router;
