@@ -31,7 +31,7 @@ services:
       MYSQL_DATABASE: "suura"
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
-      - mysql:/var/lib/mysql
+      - ../../data/mysql:/var/lib/mysql
     expose: 
       - "3306"
     ports: 
