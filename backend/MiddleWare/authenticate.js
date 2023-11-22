@@ -16,10 +16,15 @@ async function authenticateToken(req, res, next) {
       return res.status(401).json({message:'invalid Token'})
     }
     let userRecord = await UserModel.findByPk(user.id)
-     
-      // Attach the user object to the request for further processing
+    if (userRecord) {
       req.user = userRecord;
       next();
+       
+    }
+    else {
+      return res.status(404).json({message:'User not Found!!!'})
+    }
+      // Attach the user object to the request for further processing
   } catch (error) {
     console.log(error)
     next(error)

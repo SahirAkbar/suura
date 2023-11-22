@@ -7,7 +7,7 @@ const options  = {
     enabled: false,
   },
   path: {
-    enabled: false,
+    enabled: true,
   },
   maxErrors: 1,
   transform: ({ errorMessage, index }) => `  ${errorMessage}`,

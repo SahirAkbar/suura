@@ -37,6 +37,17 @@ const UserModel = sequelize.define(
       type: DataTypes.JSON,
       defaultValue: null,
     },
+    contactnumber: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      defaultValue:null
+    },
+    portfolioUrl: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      defaultValue: null,
+    },
+    
     country: {
       type: DataTypes.STRING(255),
       defaultValue: "Netherlands",
