@@ -111,4 +111,78 @@ exports.userLogin = async (req, res, next) => {
     console.log(error)
     next(error)
   }
-}
+};
+exports.updateWorkPreference = async (req, res) => {
+  try {
+    const { id } = req.query; // Extracting photographer ID from query parameters
+
+    const { accepts_clients, availability_reminders} = req.body;
+
+    // Update the work preferences for the specific photographer ID in the database
+    await userModel.update(
+      { accepts_clients, availability_reminders },
+      { where: { id } }
+    );
+
+    // Fetch and send updated photographer details in the response
+    const updatedPhotographer = await userModel.findByPk(id);
+    if(updatedPhotographer != null){
+      updatedPhotographer.password="password is hidden";
+
+      res.status(200).json(updatedPhotographer);
+    }
+    else{
+      res.status(400).json({message: "Resource not found on the id you entered"})
+    }  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.updateServicePreference = async (req, res) => {
+  try {
+    const { hourly_rating, time_zone, extended_hours } = req.body;
+    const { id } = req.query; // Extracting photographer ID from query parameters
+
+    // Update the service preferences for the specific photographer ID in the database
+    await userModel.update(
+      { OfferServices: { hourly_rating, time_zone, extended_hours } },
+      { where: { id } }
+    );
+
+    // Fetch and send updated photographer details in the response
+    const updatedPhotographer = await userModel.findByPk(id);
+    if(updatedPhotographer != null){
+      updatedPhotographer.password="password is hidden";
+      res.status(200).json(updatedPhotographer);
+    }
+    else{
+      res.status(400).json({message: "Resource not found on the id you entered"})
+    }  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.updateProfileLanguage = async (req, res) => {
+  try {
+    const { languages, proficiency_level } = req.body;
+    const { id } = req.query; // Extracting photographer ID from query parameters
+
+    // Update the profile language preferences for the specific photographer ID in the database
+    await userModel.update(
+      { languages, proficiency_level },
+      { where: { id } }
+    );
+
+    // Fetch and send updated photographer details in the response
+    const updatedPhotographer = await userModel.findByPk(id);
+    if(updatedPhotographer != null){
+      updatedPhotographer.password="password is hidden";
+      res.status(200).json(updatedPhotographer);
+    }
+    else{
+      res.status(400).json({message: "Resource not found on the id you entered"})
+    }
+    
+   // res.status(200).json(updatedPhotographer);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
