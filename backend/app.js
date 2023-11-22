@@ -7,14 +7,16 @@ const accountsRouter = require('./routes/accountsRoute');
 const app = express();
 const port = process.env.PORT || 3000;
 var cors = require("cors");
+const authenticateToken = require('./MiddleWare/authenticate')
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/api/photographer',photographerRouter)
 app.use('/api/user', userRoutes);
-app.use('/api/account/settings', accountsRouter);
 app.get('/', (req, res, next) => {
   res.sendStatus(200)
 })
+app.use(authenticateToken);
+app.use('/api/photographer',photographerRouter)
+app.use('/api/account/settings', accountsRouter);
 app.use((error, req, res, next) => {
   return res.send(error);
 })
