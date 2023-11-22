@@ -95,3 +95,14 @@ exports.getUserInfo = async (req, res, next) => {
     next(error)
   }
 }
+exports.updateUserInfo = async (req, res, next) => {
+  
+  try {
+    let user = req.user;
+    user.set(req.body);
+    let result = await user.save();
+    return res.status(201).json({message:'User Detials updated Successfully!!!',result})
+  } catch (error) {
+    next(error)
+  }
+}
