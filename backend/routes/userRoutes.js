@@ -7,7 +7,8 @@ const validate = require('../MiddleWare/AuthenticateSchema');
 const RegisterSchmea = require('../Schema/registerSchema')
 const signupSchema = require("../Schema/signupSchema")
 const upload = require('../MiddleWare/ImageUpload');
-const userImageControler = require('../controllers/userImagesController')
+const userImageControler = require('../controllers/userImagesController');
+const authenticateToken = require('../MiddleWare/authenticate')
 // Route for the first page to enter email and password
 router.post(
   "/register/email-password",
@@ -21,7 +22,7 @@ router.post(
 );
 // Route for the second page with additional user information
 router.post(
-  "/register/user-info/:id",
+  "/register/user-info",authenticateToken,
   validate(signupSchema),
   userController.registerUserInfo
 );
@@ -29,7 +30,7 @@ router.post(
 
   
   // Route for uploading cover image and profile image
-  router.post('/upload-images/:id', upload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'profile_image', maxCount: 1 }]), userController.uploadImages);
+  router.post('/upload-images',authenticateToken, upload.fields([{ name: 'cover_image', maxCount: 1 }, { name: 'profile_image', maxCount: 1 }]), userController.uploadImages);
   //instagram route
   // Route to initiate Instagram authentication
   router.get('/register/connect-instagram', passport.authenticate('instagram'));
@@ -43,20 +44,22 @@ router.get('/register/connect-instagram/callback', passport.authenticate('instag
 router.post('/register/select-session', userController.selectSession);
 
 router.post(
-  "/ShowCase/:id",
+  "/ShowCase",authenticateToken,
   upload.fields([
     { name: "fashion", maxCount: 16 },
     { name: "wedding", maxCount: 16 },
   ]),
   userImageControler.showCase
 );
-router.post("/serviceOffer/:id", userImageControler.servicesOffers);
+
+router.post("/serviceOffer",authenticateToken, userImageControler.servicesOffers);
+
+
 
 
 router.post("/work_preference", userController.updateWorkPreference);
 router.post("/service_preference", userController.updateServicePreference);
 router.post("/profile_language", userController.updateProfileLanguage);
-
-// more routes to be added here
+ more routes to be added here
 
 module.exports = router;

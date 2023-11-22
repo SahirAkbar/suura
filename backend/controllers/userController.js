@@ -2,6 +2,7 @@ const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const _ = require('lodash');
+var createError = require("http-errors");
 // Controller for the first page - entering email and password
 exports.registerEmailPassword =async (req, res,next) => {
   const { email, password } = req.body; // Assuming you're using body-parser
@@ -12,22 +13,20 @@ exports.registerEmailPassword =async (req, res,next) => {
     let response = await userModel.create(userData)
     res.status(200).json({message:'Success',response})
   } catch (error) {
-    console.log(error)
-    next(error)
+    next(createError(401,'Internal Server Error!!'));
   }
 };
 // Controller for the second page with additional user information
 exports.registerUserInfo = async(req, res,next) => {
   const userInfo = req.body; // Assuming you're using body-parser
-  const id = req.params.id;
   try {
-    let record = await userModel.findByPk(id);
+    let record =req.user;
     if (record) {
       record.set(userInfo)
       let result = await record.save();
       return res.status(200).json({message:'Updated Successfully',result})
     } else {
-      return res.status(404).json({message:'Invalid id '})
+      throw createError(401, "User Not Found!!")
     }
   } catch (error) {
     next(error)
@@ -36,13 +35,11 @@ exports.registerUserInfo = async(req, res,next) => {
 //controller for image upload
 exports.uploadImages = async (req, res,next) => {
   try {
-  const id = req.params.id;
   const { cover_image, profile_image } = req.files;
   const coverImagePath = cover_image[0].path;
   const profileImagePath = profile_image[0].path;
   const bio = req.body.bio;
-  console.log(req.files)
-    let record = await userModel.findByPk(id);
+    let record = req.user;
     if (record) {
       record.set({
         cover_image: coverImagePath,
@@ -52,7 +49,7 @@ exports.uploadImages = async (req, res,next) => {
       let result = await record.save();
       return res.status(200).json({message:'Updated Successfully',result})
     } else {
-      return res.status(404).json({message:'Invalid id '})
+      return res.status(404).json({message:'User not found'})
     }
   } catch (error) {
     next(error)

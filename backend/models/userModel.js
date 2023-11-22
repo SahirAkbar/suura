@@ -76,6 +76,10 @@ const UserModel = sequelize.define(
     proficiency_level: {
       type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
     },
+    preferences: {
+      type: DataTypes.JSON,
+      allowNull:true
+    }
   },
   {
     tableName: "users",
