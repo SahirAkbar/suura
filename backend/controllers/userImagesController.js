@@ -25,7 +25,8 @@ exports.showCase = async (req, res, next) => {
 exports.servicesOffers = async (req, res, next) => {
   try {
     const {Services,Offers } = req.body;
-    let user =await UserModel.findByPk(req.params.id);
+    let user = req.user;
+    console.log("User , ", user)
     if (user) {
       user.set({ AskServices: Services, OfferServices: Offers });    
       let result = await user.save()

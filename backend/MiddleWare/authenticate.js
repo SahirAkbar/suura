@@ -15,7 +15,9 @@ async function authenticateToken(req, res, next) {
     if (!user) {
       return res.status(401).json({message:'invalid Token'})
     }
+    console.log(user.id, " is id")
     let userRecord = await UserModel.findByPk(user.id)
+    console.log(userRecord, " is user Record")
     if (userRecord) {
       req.user = userRecord;
       next();
