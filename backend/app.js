@@ -18,10 +18,14 @@ app.use(authenticateToken);
 app.use('/api/photographer',photographerRouter)
 app.use('/api/account/settings', accountsRouter);
 app.use((error, req, res, next) => {
+   if (error && error.name === "SequelizeUniqueConstraintError") {
+     // Handle the duplicate entry error
+     return res
+       .status(409)
+       .json({ error: "Duplicate entry error", message:error?.errors[0].message });
+   }
   return res.send(error);
 })
-
-
 sequelize.sync().then(() => {
   console.log("database Connected");
   app.listen(port, () => {

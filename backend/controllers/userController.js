@@ -5,7 +5,7 @@ const _ = require('lodash');
 var createError = require("http-errors");
 // Controller for the first page - entering email and password
 exports.registerEmailPassword =async (req, res,next) => {
-  const { email, password } = req.body; // Assuming you're using body-parser
+  const { email, password } = req.body; 
   const userData = { email, password };
   const hashedPassword = bcrypt.hashSync(password, 10);
   userData.password = hashedPassword
@@ -13,7 +13,7 @@ exports.registerEmailPassword =async (req, res,next) => {
     let response = await userModel.create(userData)
     res.status(200).json({message:'Success',response})
   } catch (error) {
-    next(createError(401,'Internal Server Error!!'));
+    next(error);
   }
 };
 // Controller for the second page with additional user information
