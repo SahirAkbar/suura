@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const _ = require('lodash');
 var createError = require("http-errors");
+const { Op } = require('sequelize');
 // Controller for the first page - entering email and password
 exports.registerEmailPassword =async (req, res,next) => {
   const { email, password } = req.body; 
@@ -181,5 +182,71 @@ exports.updateProfileLanguage = async (req, res) => {
    // res.status(200).json(updatedPhotographer);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+exports.searchByUsername = async (req, res, next) => {
+  try {
+    let { username } = req.params;
+    console.log(username)
+    let response = await userModel.findAndCountAll({ where: { username: username } });
+    console.log(response)
+    if (response.count > 0) {
+      
+      return res.status(200).json(response)
+    }
+    return res.status(404).json({message:'No Records found'})
+ } catch (error) {
+  next(error)
+ }
+}
+exports.searchByPartialUsername = async (req, res, next) => {
+   try {
+     let { username } = req.params;
+     let queryUsername = `%${username}%`;
+     console.log(queryUsername)
+     let response = await userModel.findAndCountAll({
+       where: { username: { [Op.like]: queryUsername } },
+     });
+     console.log(response);
+     if (response.count > 0) {
+       return res.status(200).json(response);
+     }
+     return res.status(404).json({ message: "No Records found" });
+   } catch (error) {
+     next(error);
+   }
+}
+exports.searchbyusernamePrefix = async (req, res, next) => {
+  try {
+    let { username } = req.params;
+  
+    let response = await userModel.findAndCountAll({
+      where: { username: { [Op.startsWith]: username } },
+    });
+    console.log(response);
+    if (response.count > 0) {
+      return res.status(200).json(response);
+    }
+    return res.status(404).json({ message: "No Records found" });
+  } catch (error) {
+    next(error);
+  }
+};
+exports.searchbyusernameSuffix = async (req, res, next) => {
+  try {
+    let { username } = req.params;
+    console.log("Called with username : ",username)
+    
+    let response = await userModel.findAndCountAll({
+      where: { username: { [Op.endsWith]: username } },
+    });
+    console.log(response);
+    if (response.count > 0) {
+      return res.status(200).json(response);
+    }
+    return res.status(404).json({ message: "No Records found" });
+  } catch (error) {
+    console.log(error)
+    next(error);
   }
 };

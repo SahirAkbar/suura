@@ -62,5 +62,13 @@ router.post("/work_preference", userController.updateWorkPreference);
 router.post("/service_preference", userController.updateServicePreference);
 router.post("/profile_language", userController.updateProfileLanguage);
 
+//Suura -93 Search By name
+router.get('/search/username/:username', userController.searchByUsername);
+router.get("/search/username/partial/:username", userController.searchByPartialUsername);
+router.get("/search/username/prefix/:username", userController.searchbyusernamePrefix);
+router.get(
+  "/search/username/suffix/:username",
+  userController.searchbyusernameSuffix
+);
 
 module.exports = router;
