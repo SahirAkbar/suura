@@ -190,7 +190,7 @@ exports.updateProfileLanguage = async (req, res) => {
 };
 exports.searchByUsername = async (req, res, next) => {
   try {
-    let { username } = req.params;
+    let { username } = req.query;
     console.log(username)
     let response = await userModel.findAndCountAll({ where: { username: username } });
     console.log(response)
@@ -198,14 +198,14 @@ exports.searchByUsername = async (req, res, next) => {
       
       return res.status(200).json(response)
     }
-    return res.status(404).json({message:'No Records found'})
+    return res.status(200).json({message:'No Records found'})
  } catch (error) {
   next(error)
  }
 }
 exports.searchByPartialUsername = async (req, res, next) => {
    try {
-     let { username } = req.params;
+     let { username } = req.query;
      let queryUsername = `%${username}%`;
      console.log(queryUsername)
      let response = await userModel.findAndCountAll({
@@ -215,14 +215,14 @@ exports.searchByPartialUsername = async (req, res, next) => {
      if (response.count > 0) {
        return res.status(200).json(response);
      }
-     return res.status(404).json({ message: "No Records found" });
+     return res.status(200).json({ message: "No Records found" });
    } catch (error) {
      next(error);
    }
 }
 exports.searchbyusernamePrefix = async (req, res, next) => {
   try {
-    let { username } = req.params;
+    let { username } = req.query;
   
     let response = await userModel.findAndCountAll({
       where: { username: { [Op.startsWith]: username } },
@@ -231,14 +231,14 @@ exports.searchbyusernamePrefix = async (req, res, next) => {
     if (response.count > 0) {
       return res.status(200).json(response);
     }
-    return res.status(404).json({ message: "No Records found" });
+    return res.status(200).json({ message: "No Records found" });
   } catch (error) {
     next(error);
   }
 };
 exports.searchbyusernameSuffix = async (req, res, next) => {
   try {
-    let { username } = req.params;
+    let { username } = req.query;
     console.log("Called with username : ",username)
     
     let response = await userModel.findAndCountAll({
@@ -248,7 +248,7 @@ exports.searchbyusernameSuffix = async (req, res, next) => {
     if (response.count > 0) {
       return res.status(200).json(response);
     }
-    return res.status(404).json({ message: "No Records found" });
+    return res.status(200).json({ message: "No Records found", });
   } catch (error) {
     console.log(error)
     next(error);
