@@ -24,7 +24,7 @@ app.use((error, req, res, next) => {
        .status(409)
        .json({ error: "Duplicate entry error", message:error?.errors[0].message });
    }
-  return res.send(error);
+  return res.status(500).json(error);
 })
 sequelize.sync().then(() => {
   console.log("database Connected");

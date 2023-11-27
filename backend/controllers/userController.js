@@ -11,9 +11,13 @@ exports.registerEmailPassword =async (req, res,next) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
   userData.password = hashedPassword
   try {
-    let response = await userModel.create(userData)
-    res.status(200).json({message:'Success',response})
+    let user = await userModel.create(userData);
+     const userRecord = user.dataValues;
+     const userValues = _.omit(userRecord, "password");
+     var token = jwt.sign(userValues, "shhhhh");
+    res.status(200).json({ message: "Success", token,userInfo: userValues });
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };
