@@ -1,9 +1,12 @@
 const userModel = require('../models/userModel');
+const PayoutModel = require('../models/payoutModel');
+const Userpreferences= require('../models/UserPreference');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const _ = require('lodash');
 var createError = require("http-errors");
 const { Op } = require('sequelize');
+const UserPreferences = require('../models/UserPreference');
 // Controller for the first page - entering email and password
 exports.registerEmailPassword =async (req, res,next) => {
   const { email, password } = req.body; 
@@ -110,80 +113,164 @@ exports.userLogin = async (req, res, next) => {
     next(error)
   }
 };
+// exports.updateWorkPreference = async (req, res) => {
+//   try {
+//     const { id } = req.query; // Extracting user ID from query parameters
+
+//     // Check if the user exists in the User table
+//     const existingUser = await userModel.findByPk(id);
+//     if (existingUser) {
+//       const { accepts_clients, availability_reminders, hourly_rate, time_zones, extended_hours, languages, proficiency_level   } = req.body;
+//       // Find or create a payout record for the specific photographer ID
+//     let preferences = await UserPreferences.findOrCreate({ where: { UserId: id } });
+//       // Update the work preferences for the specific user ID in the UserPreferences table
+
+//     await preferences[0].update({accepts_clients, availability_reminders, hourly_rate, time_zones, extended_hours, languages, proficiency_level });
+//       if (preferences) {
+//         // Fetch and send updated user preferences in the response
+//         res.status(200).json(preferences);
+//       } else {
+//         res.status(500).json({ message: 'Failed to update user preferences' });
+//       }
+//     } else {
+//       res.status(404).json({ message: 'User not found for the entered ID' });
+//     }
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+// exports.updateWorkPreference = async (req, res) => {
+//   try {
+//     const { id } = req.query; // Extracting user ID from query parameters
+
+//     // Check if the user exists in the User table
+//     const existingUser = await userModel.findByPk(id);
+//     if (!existingUser) {
+//       return res.status(404).json({ message: 'User not found for the entered ID' });
+//     }
+
+//     const {
+//       accepts_clients,
+//       availability_reminders,
+//       hourly_rate,
+//       time_zones,
+//       extended_hours,
+//       languages,
+//       proficiency_level,
+//     } = req.body;
+
+//     // Find or create UserPreferences for the specific user ID
+//     const [preferences, created] = await UserPreferences.findOrCreate({
+//       where: { UserId: id },
+//       defaults: {
+//         // Set default values if the record is created
+//         accepts_clients,
+//         availability_reminders,
+//         hourly_rate,
+//         time_zones,
+//         extended_hours,
+//         languages,
+//         proficiency_level,
+//       },
+//     });
+
+//     if (!preferences) {
+//       return res.status(500).json({ message: 'Failed to update user preferences' });
+//     }
+
+//     if (!created) {
+//       // If the record already exists, update the preferences
+//       await preferences.update({
+//         accepts_clients,
+//         availability_reminders,
+//         hourly_rate,
+//         time_zones,
+//         extended_hours,
+//         languages,
+//         proficiency_level,
+//       });
+//     }
+
+//     // Fetch and send updated user preferences in the response
+//     res.status(200).json(preferences);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 exports.updateWorkPreference = async (req, res) => {
   try {
-    const { id } = req.query; // Extracting photographer ID from query parameters
+    const { id } = req.query; // Extracting user ID from query parameters
 
-    const { accepts_clients, availability_reminders} = req.body;
-
-    // Update the work preferences for the specific photographer ID in the database
-    await userModel.update(
-      { accepts_clients, availability_reminders },
-      { where: { id } }
-    );
-
-    // Fetch and send updated photographer details in the response
-    const updatedPhotographer = await userModel.findByPk(id);
-    if(updatedPhotographer != null){
-      updatedPhotographer.password="password is hidden";
-
-      res.status(200).json(updatedPhotographer);
+    // Check if the user exists in the User table
+    const existingUser = await userModel.findByPk(id);
+    if (!existingUser) {
+      return res.status(404).json({ message: 'User not found for the entered ID' });
     }
-    else{
-      res.status(400).json({message: "Resource not found on the id you entered"})
-    }  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-exports.updateServicePreference = async (req, res) => {
-  try {
-    const { hourly_rating, time_zone, extended_hours } = req.body;
-    const { id } = req.query; // Extracting photographer ID from query parameters
 
-    // Update the service preferences for the specific photographer ID in the database
-    await userModel.update(
-      { OfferServices: { hourly_rating, time_zone, extended_hours } },
-      { where: { id } }
-    );
+    const {
+      accepts_clients,
+      availability_reminders,
+      hourly_rate,
+      time_zones,
+      extended_hours,
+      languages,
+      proficiency_level,
+    } = req.body;
 
-    // Fetch and send updated photographer details in the response
-    const updatedPhotographer = await userModel.findByPk(id);
-    if(updatedPhotographer != null){
-      updatedPhotographer.password="password is hidden";
-      res.status(200).json(updatedPhotographer);
+    // Find or create UserPreferences for the specific user ID
+    const [preferences, created] = await UserPreferences.findOrCreate({
+      where: { UserId: id },
+      defaults: {
+        // Set default values if the record is created
+        accepts_clients,
+        availability_reminders,
+        hourly_rate,
+        time_zones,
+        extended_hours,
+        languages,
+        proficiency_level,
+        accepting_clients_from: accepts_clients ? new Date() : null, // Update accepting_clients_from if accepts_clients is true
+      },
+    });
+
+    if (!preferences) {
+      return res.status(500).json({ message: 'Failed to update user preferences' });
     }
-    else{
-      res.status(400).json({message: "Resource not found on the id you entered"})
-    }  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-exports.updateProfileLanguage = async (req, res) => {
-  try {
-    const { languages, proficiency_level } = req.body;
-    const { id } = req.query; // Extracting photographer ID from query parameters
 
-    // Update the profile language preferences for the specific photographer ID in the database
-    await userModel.update(
-      { languages, proficiency_level },
-      { where: { id } }
-    );
+    if (!created) {
+      // If the record already exists and accepts_clients is being updated
+      if (accepts_clients !== preferences.accepts_clients) {
+        await preferences.update({
+          accepts_clients,
+          availability_reminders,
+          hourly_rate,
+          time_zones,
+          extended_hours,
+          languages,
+          proficiency_level,
+          accepting_clients_from: accepts_clients ? new Date() : preferences.accepting_clients_from, // Update accepting_clients_from only if accepts_clients is true and retain its previous value otherwise
+        });
+      } else {
+        // If accepts_clients remains unchanged or is false, update other preferences without affecting accepting_clients_from
+        await preferences.update({
+          availability_reminders,
+          hourly_rate,
+          time_zones,
+          extended_hours,
+          languages,
+          proficiency_level,
+        });
+      }
+    }
 
-    // Fetch and send updated photographer details in the response
-    const updatedPhotographer = await userModel.findByPk(id);
-    if(updatedPhotographer != null){
-      updatedPhotographer.password="password is hidden";
-      res.status(200).json(updatedPhotographer);
-    }
-    else{
-      res.status(400).json({message: "Resource not found on the id you entered"})
-    }
-    
-   // res.status(200).json(updatedPhotographer);
+    // Fetch and send updated user preferences in the response
+    res.status(200).json(preferences);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+
 exports.searchByUsername = async (req, res, next) => {
   try {
     let { username } = req.params;
@@ -248,5 +335,76 @@ exports.searchbyusernameSuffix = async (req, res, next) => {
   } catch (error) {
     console.log(error)
     next(error);
+  }
+};
+exports.addPaymentDetails = async (req, res) => {
+  try {
+    const { cash, bank_name, IBAN, routing_number, bank_code, paypal_details } = req.body;
+    const { id } = req.query; // Extracting photographer ID from query parameters
+
+    // Find or create a payout record for the specific photographer ID
+    let payout = await PayoutModel.findOrCreate({ where: { UserId: id } });
+
+    // Update the payout details for the specific photographer ID in the database
+    await payout[0].update({ cash, bank_name, IBAN, routing_number, bank_code, paypal_details });
+
+    // Fetch and send updated photographer details in the response
+    const updatedPhotographer = await userModel.findByPk(id, { include: PayoutModel });
+    res.status(200).json(updatedPhotographer);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.getUserPreferences = async (req, res) => {
+  try {
+    const { id } = req.query; // Extracting user ID from query parameters
+
+    // Check if the user exists in the User table
+    const existingUser = await userModel.findByPk(id);
+    if (!existingUser) {
+      return res.status(404).json({ message: 'User not found for the entered ID' });
+    }
+
+    // Find UserPreferences for the specific user ID
+    const preferences = await UserPreferences.findOne({ where: { UserId: id } });
+
+    if (!preferences) {
+      return res.status(404).json({ message: 'Preferences not found for the user' });
+    }
+
+    const acceptsClients = preferences.accepts_clients;
+    if (!acceptsClients) {
+      return res.status(200).json({ message: 'Currently Photographer is not accepting clients' }); // If negative, photographer has passed the 30-day period
+
+    }
+    let daysRemaining = null;
+
+    if (acceptsClients) {
+      // Calculate the number of days remaining for accepting clients
+      const createdAt = preferences.createdAt; // Assuming createdAt is the field storing the creation date
+
+      const currentDate = new Date();
+      const thirtyDaysLater = new Date(createdAt);
+      thirtyDaysLater.setDate(thirtyDaysLater.getDate() + 30);
+
+      const diffTime = thirtyDaysLater.getTime() - currentDate.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
+      if (diffDays >= 0) {
+        daysRemaining = diffDays;
+      } else {
+        return res.status(200).json({ message: 'Currently Photographer is not accepting clients' }); // If negative, photographer has passed the 30-day period
+      }
+    }
+
+    // Prepare response with preferences and days remaining
+    const response = {
+      preferences,
+      daysRemaining,
+    };
+
+    return res.status(200).json(response);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

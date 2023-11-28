@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../utils/sequelizeConnection"); // Replace with your Sequelize instance
+const PayoutModel = require("./payoutModel"); // Import PayoutModel
 const UserModel = sequelize.define(
   "User",
   {
@@ -64,29 +65,6 @@ const UserModel = sequelize.define(
       type: DataTypes.JSON,
       allowNull: true,
     },  // New fields for preferences
-    accepts_clients: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    availability_reminders: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    hourly_rate: {
-      type: DataTypes.STRING(100),
-    },
-    time_zones: {
-      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
-    },
-    extended_hours: {
-      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
-    },
-    languages: {
-      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
-    },
-    proficiency_level: {
-      type: DataTypes.JSON, // Using JSON data type to store array-like data as JSON
-    },
     preferences: {
       type: DataTypes.JSON,
       allowNull:true
@@ -98,5 +76,11 @@ const UserModel = sequelize.define(
     underscored: true, // Use underscores in column names (e.g., created_at instead of createdAt)
   }
 );
+const UserPreferences = require('./UserPreference'); // Import the UserPreferences model
+UserModel.hasOne(UserPreferences);
+UserPreferences.belongsTo(UserModel);
+UserModel.hasOne(UserPreferences);
+UserModel.hasOne(PayoutModel);
+PayoutModel.belongsTo(UserModel);
 
 module.exports = UserModel;
