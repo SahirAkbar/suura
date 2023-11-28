@@ -85,4 +85,8 @@ router.get(
   userController.searchbyusernameSuffix
 );
 
+
+//Suura -95 ticket
+router.get("/profile/details", authenticateToken,userController.getProfileDetails);
+
 module.exports = router;

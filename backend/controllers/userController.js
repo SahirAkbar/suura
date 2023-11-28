@@ -254,3 +254,32 @@ exports.searchbyusernameSuffix = async (req, res, next) => {
     next(error);
   }
 };
+exports.getProfileDetails = async (req, res, next) => {
+  try {
+    let user = req.user.dataValues;
+    if (user) {
+      const userRecord = _.omit(user, [
+        "id",
+        "email",
+        "password",
+        "currency",
+        "time_zones",
+        "extended_hours",
+        "languages",
+        "proficiency_level",
+        "instagram_username",
+        "full_name",
+        "state",
+        "city",
+        "user_id",
+      
+      ]);
+      console.log(req.user);
+      return res.json({ user: userRecord });
+    } else {
+      return res.status(404).json({ message: 'Record not found!!!' });
+    }
+  } catch (error) {
+    next(error)
+  }
+}
