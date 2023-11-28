@@ -3,12 +3,13 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 
 const passport = require('passport');
-const validate = require('../MiddleWare/AuthenticateSchema');
 const RegisterSchmea = require('../Schema/registerSchema')
 const signupSchema = require("../Schema/signupSchema")
 const upload = require('../MiddleWare/ImageUpload');
 const userImageControler = require('../controllers/userImagesController');
 const authenticateToken = require('../MiddleWare/authenticate')
+const validate = require('../MiddleWare/AuthenticateSchema');
+const searchByUsernameSchema = require('../Schema/Photographer/SearchByusername')
 // Route for the first page to enter email and password
 router.post(
   "/register/email-password",
@@ -65,12 +66,29 @@ router.post("/payment", userController.addPaymentDetails);
 // router.post("/profile_language", userController.updateProfileLanguage);
 
 //Suura -93 Search By name
-router.get('/search/username/:username', userController.searchByUsername);
-router.get("/search/username/partial/:username", userController.searchByPartialUsername);
-router.get("/search/username/prefix/:username", userController.searchbyusernamePrefix);
 router.get(
-  "/search/username/suffix/:username",
+  "/search/username",
+  validate(searchByUsernameSchema),
+  userController.searchByUsername
+);
+router.get(
+  "/search/username/partial",
+  validate(searchByUsernameSchema),
+  userController.searchByPartialUsername
+);
+router.get(
+  "/search/username/prefix",
+  validate(searchByUsernameSchema),
+  userController.searchbyusernamePrefix
+);
+router.get(
+  "/search/username/suffix",
+  validate(searchByUsernameSchema),
   userController.searchbyusernameSuffix
 );
+
+
+//Suura -95 ticket
+router.get("/profile/details", authenticateToken,userController.getProfileDetails);
 
 module.exports = router;
