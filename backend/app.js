@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
+const stripeRoutes = require('./routes/stripeRoutes');
 const sequelize = require('./utils/sequelizeConnection')
 const photographerRouter = require('./routes/PhotographerRoute')
 const accountsRouter = require('./routes/accountsRoute');
@@ -11,6 +12,7 @@ const authenticateToken = require('./MiddleWare/authenticate')
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/user', userRoutes);
+app.use('/api/stripe', stripeRoutes);
 app.get('/', (req, res, next) => {
   res.sendStatus(200)
 })

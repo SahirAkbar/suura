@@ -60,8 +60,10 @@ router.post("/serviceOffer",authenticateToken, userImageControler.servicesOffers
 
 
 router.post("/work_preference", userController.updateWorkPreference);
-router.post("/service_preference", userController.updateServicePreference);
-router.post("/profile_language", userController.updateProfileLanguage);
+router.get("/work_preference", userController.getUserPreferences);
+router.post("/payment", userController.addPaymentDetails);
+// router.post("/service_preference", userController.updateServicePreference);
+// router.post("/profile_language", userController.updateProfileLanguage);
 
 //Suura -93 Search By name
 router.get(
