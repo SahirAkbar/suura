@@ -45,10 +45,23 @@ router.get('/register/connect-instagram/callback', passport.authenticate('instag
 router.post('/register/select-session',authenticateToken, userController.selectSession);
 
 router.post(
-  "/ShowCase",authenticateToken,
+  "/ShowCase",
+  authenticateToken,
   upload.fields([
     { name: "fashion", maxCount: 16 },
-    { name: "wedding", maxCount: 16 },
+    { name: "Couples", maxCount: 16 },
+    { name: "Interior", maxCount: 16 },
+    { name: "Elopement", maxCount: 16 },
+    { name: "Family", maxCount: 16 },
+    { name: "Maternity", maxCount: 16 },
+    { name: "Portraits", maxCount: 16 },
+    { name: "Graduation", maxCount: 16 },
+    { name: "Boudoir", maxCount: 16 },
+    { name: "Branding", maxCount: 16 },
+    { name: "Pets", maxCount: 16 },
+    { name: "Architecture", maxCount: 16 },
+    { name: "Product", maxCount: 16 },
+    { name: "Fashion", maxCount: 16 },
   ]),
   userImageControler.showCase
 );
