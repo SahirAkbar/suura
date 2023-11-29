@@ -42,7 +42,7 @@ router.get('/register/connect-instagram/callback', passport.authenticate('instag
   failureRedirect: '/failure', // Redirect to a failure page
 }), userController.connectInstagram)
 //sessions offered by user route
-router.post('/register/select-session', userController.selectSession);
+router.post('/register/select-session',authenticateToken, userController.selectSession);
 
 router.post(
   "/ShowCase",authenticateToken,

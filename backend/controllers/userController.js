@@ -80,17 +80,16 @@ exports.connectInstagram = (req, res) => {
 };
  
 // Controller for selecting the user's preferred session
-exports.selectSession = (req, res) => {
+exports.selectSession =async (req, res) => {
   const { email, selectedSessions } = req.body;
-  // Assuming you have a function to update the user's profile with the selected sessions
-  userModel.updateUserSelectedSessions(email, selectedSessions, (error, results) => {
-    if (error) {
-      console.error('Error: ' + error.message);
-   return    res.status(500).json({message: 'Error updating selected sessions'});
-    } else {
- return      res.status(200).json({ message: 'Selected sessions updated successfully' });
-    }
-  });
+  let user = req.user;
+  user.set(selectedSessions);
+  let updatedUser = await user.save();
+ return res
+   .status(200)
+   .json({ message: "Selected sessions updated successfully", updatedUser });
+   
+   
 };
 exports.userLogin = async (req, res, next) => {
   const { email,password} = req.body

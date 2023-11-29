@@ -6,6 +6,7 @@ async function authenticateToken(req, res, next) {
     
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
+    console.log(token)
     if (!token) {
       return res.status(401).json({ error: "Unauthorized - Missing token" });
     }
@@ -15,6 +16,7 @@ async function authenticateToken(req, res, next) {
     if (!user) {
       return res.status(401).json({message:'invalid Token'})
     }
+    console.log(user);
     console.log(user.id, " is id")
     let userRecord = await UserModel.findByPk(user.id)
     console.log(userRecord, " is user Record")

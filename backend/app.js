@@ -20,6 +20,7 @@ app.get('/', (req, res, next) => {
 app.use(authenticateToken);
 app.use('/api/account/settings', accountsRouter);
 app.use((error, req, res, next) => {
+  console.log(error)
    if (error && error.name === "SequelizeUniqueConstraintError") {
      // Handle the duplicate entry error
      return res
