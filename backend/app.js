@@ -13,11 +13,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/user', userRoutes);
 app.use('/api/stripe', stripeRoutes);
+app.use('/api/photographer',photographerRouter)
 app.get('/', (req, res, next) => {
   res.sendStatus(200)
 })
 app.use(authenticateToken);
-app.use('/api/photographer',photographerRouter)
 app.use('/api/account/settings', accountsRouter);
 app.use((error, req, res, next) => {
    if (error && error.name === "SequelizeUniqueConstraintError") {

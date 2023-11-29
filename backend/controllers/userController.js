@@ -201,78 +201,7 @@ exports.userLogin = async (req, res, next) => {
 //     res.status(500).json({ error: err.message });
 //   }
 // };
-exports.updateWorkPreference = async (req, res) => {
-  try {
-    const { id } = req.query; // Extracting user ID from query parameters
-
-    // Check if the user exists in the User table
-    const existingUser = await userModel.findByPk(id);
-    if (!existingUser) {
-      return res.status(404).json({ message: 'User not found for the entered ID' });
-    }
-
-    const {
-      accepts_clients,
-      availability_reminders,
-      hourly_rate,
-      time_zones,
-      extended_hours,
-      languages,
-      proficiency_level,
-    } = req.body;
-
-    // Find or create UserPreferences for the specific user ID
-    const [preferences, created] = await UserPreferences.findOrCreate({
-      where: { UserId: id },
-      defaults: {
-        // Set default values if the record is created
-        accepts_clients,
-        availability_reminders,
-        hourly_rate,
-        time_zones,
-        extended_hours,
-        languages,
-        proficiency_level,
-        accepting_clients_from: accepts_clients ? new Date() : null, // Update accepting_clients_from if accepts_clients is true
-      },
-    });
-
-    if (!preferences) {
-      return res.status(500).json({ message: 'Failed to update user preferences' });
-    }
-
-    if (!created) {
-      // If the record already exists and accepts_clients is being updated
-      if (accepts_clients !== preferences.accepts_clients) {
-        await preferences.update({
-          accepts_clients,
-          availability_reminders,
-          hourly_rate,
-          time_zones,
-          extended_hours,
-          languages,
-          proficiency_level,
-          accepting_clients_from: accepts_clients ? new Date() : preferences.accepting_clients_from, // Update accepting_clients_from only if accepts_clients is true and retain its previous value otherwise
-        });
-      } else {
-        // If accepts_clients remains unchanged or is false, update other preferences without affecting accepting_clients_from
-        await preferences.update({
-          availability_reminders,
-          hourly_rate,
-          time_zones,
-          extended_hours,
-          languages,
-          proficiency_level,
-        });
-      }
-    }
-
-    // Fetch and send updated user preferences in the response
-    res.status(200).json(preferences);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+ 
 
 
 exports.searchByUsername = async (req, res, next) => {
@@ -444,3 +373,59 @@ exports.getProfileDetails = async (req, res, next) => {
   }
 }
 
+exports.updateWorkPreference = async (req, res, next) => {
+  try {
+    const existingUser = req.user;
+    if (!existingUser) {
+      return res
+        .status(404)
+        .json({ message: "User not found for the entered ID" });
+    }
+    const id = existingUser.dataValues.id;
+    const { accepts_clients, availability_reminders } = req.body;
+    console.log(accepts_clients, availability_reminders, " is from body");
+    // Find or create UserPreferences for the specific user ID
+    const [preferences, created] = await UserPreferences.findOrCreate({
+      where: { UserId: id },
+      options: {
+        upsert: true,
+      },
+      defaults: {
+        accepts_clients,
+        availability_reminders,
+        accepting_clients_from: accepts_clients ? new Date() : null, // Update accepting_clients_from if accepts_clients is true
+      },
+    });
+    if (!preferences) {
+      return res
+        .status(500)
+        .json({ message: "Failed to update user preferences" });
+    }
+    if (!created) {
+      // If the record already exists and accepts_clients is being updated
+      if (accepts_clients !== preferences.accepts_clients) {
+        await preferences.update({
+          accepts_clients,
+          availability_reminders,
+          
+          accepting_clients_from: accepts_clients
+            ? new Date()
+            : preferences.accepting_clients_from, // Update accepting_clients_from only if accepts_clients is true and retain its previous value otherwise
+        });
+      } else {
+        // If accepts_clients remains unchanged or is false, update other preferences without affecting accepting_clients_from
+        await preferences.update({
+          accepts_clients,
+          availability_reminders,
+          accepting_clients_from: accepts_clients
+            ? new Date()
+            : preferences.accepting_clients_from, // Update accepting_clients_from only if accepts_clients is true and retain its previous value otherwise
+        });
+      }
+    }
+    // Fetch and send updated user preferences in the response
+    res.status(200).json(preferences);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

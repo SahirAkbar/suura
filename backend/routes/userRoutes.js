@@ -59,7 +59,7 @@ router.post("/serviceOffer",authenticateToken, userImageControler.servicesOffers
 
 
 
-router.post("/work_preference", userController.updateWorkPreference);
+router.post("/work_preference",authenticateToken, userController.updateWorkPreference);
 router.get("/work_preference", userController.getUserPreferences);
 router.post("/payment", userController.addPaymentDetails);
 // router.post("/service_preference", userController.updateServicePreference);
