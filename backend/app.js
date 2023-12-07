@@ -9,6 +9,15 @@ const app = express();
 const port = process.env.PORT || 3000;
 var cors = require("cors");
 const authenticateToken = require('./MiddleWare/authenticate')
+const ua = require('universal-analytics');
+
+// Initialize Google Analytics
+const visitor = ua('418281512');
+visitor.event('Category', 'Action').send();
+
+// Send a pageview
+visitor.pageview('/api').send();
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/user', userRoutes);
